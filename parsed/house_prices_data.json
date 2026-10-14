@@ -29,8 +29,8 @@
     ]
   },
   "cities": {
-    "description": "9个代表性城市房价跨期对比（2010 vs 2026），房价为二手住宅成交/网签口径",
-    "note": "价格与涨幅经 scripts/transcribe_raw.py 从 raw/ 数据源转录；人口/收入/供给增幅为统计公报口径。price_growth 为空表示缺权威口径。",
+    "description": "15个代表性城市房价跨期对比（2010 vs 2026）：一线/新一线/二线 9 城 + 三四线 6 城",
+    "note": "价格与涨幅经 scripts/transcribe_raw.py 从 raw/ 数据源转录；一二线 2026 为成交/网签口径，三四线 2010 为新房均价排行口径、2026 为鸥维数据参考口径（已标注）。人口/收入增幅为统计公报口径。price_growth 为空表示缺权威口径。supply_growth 为空表示数据缺省。",
     "records": [
       {"city": "北京", "type": "一线核心", "pop_growth": 11.2, "income_growth": 231.2, "price_2010": 19186, "price_2026": 39000, "price_growth": 103.3, "supply_growth": 19.5},
       {"city": "深圳", "type": "一线核心", "pop_growth": 75.9, "income_growth": 162.3, "price_2010": 18774, "price_2026": 57706, "price_growth": 207.4, "supply_growth": 42.9},
@@ -40,7 +40,13 @@
       {"city": "成都", "type": "新一线", "pop_growth": 52.4, "income_growth": 198.7, "price_2010": 7500, "price_2026": 14900, "price_growth": 98.7, "supply_growth": 45.0},
       {"city": "青岛", "type": "北方二线", "pop_growth": 18.7, "income_growth": 186.8, "price_2010": 8500, "price_2026": 16822, "price_growth": 97.9, "supply_growth": 28.4},
       {"city": "沈阳", "type": "东北二线", "pop_growth": 14.4, "income_growth": 128.4, "price_2010": 3800, "price_2026": 7540, "price_growth": 98.4, "supply_growth": 29.0},
-      {"city": "哈尔滨", "type": "东北二线", "pop_growth": -7.0, "income_growth": 167.2, "price_2010": 7550, "price_2026": 7200, "price_growth": -4.6, "supply_growth": 15.3}
+      {"city": "哈尔滨", "type": "东北二线", "pop_growth": -7.0, "income_growth": 167.2, "price_2010": 7550, "price_2026": 7200, "price_growth": -4.6, "supply_growth": 15.3},
+      {"city": "洛阳", "type": "三线", "pop_growth": 8.1, "income_growth": 182.8, "price_2010": 4207, "price_2026": 7096, "price_growth": 68.7, "supply_growth": null},
+      {"city": "汕头", "type": "三线", "pop_growth": 3.4, "income_growth": 167.3, "price_2010": 4330, "price_2026": 10287, "price_growth": 137.6, "supply_growth": null},
+      {"city": "湛江", "type": "三线", "pop_growth": 1.9, "income_growth": 161.0, "price_2010": 4772, "price_2026": 8375, "price_growth": 75.5, "supply_growth": null},
+      {"city": "徐州", "type": "三线", "pop_growth": 4.5, "income_growth": 192.2, "price_2010": 4632, "price_2026": 7718, "price_growth": 66.6, "supply_growth": null},
+      {"city": "九江", "type": "四线", "pop_growth": -5.2, "income_growth": 225.4, "price_2010": 4771, "price_2026": 6942, "price_growth": 45.5, "supply_growth": null},
+      {"city": "济宁", "type": "四线", "pop_growth": 0.6, "income_growth": 193.2, "price_2010": 3950, "price_2026": 6349, "price_growth": 60.7, "supply_growth": null}
     ]
   },
   "shandong_cities": {

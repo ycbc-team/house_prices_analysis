@@ -27,40 +27,56 @@ OUT_CSV = PARSED / "cities_comparison.csv"
 CITY_ALIAS = {
     "北京": "北京", "深圳": "深圳", "广州": "广州", "杭州": "杭州",
     "厦门": "厦门", "成都": "成都", "青岛": "青岛", "沈阳": "沈阳", "哈尔滨": "哈尔滨",
+    "洛阳": "洛阳", "汕头": "汕头", "湛江": "湛江", "徐州": "徐州",
+    "九江": "九江", "济宁": "济宁",
 }
 
-# 需要转录的 9 城（含 2010 与 2026 两个数据点）
-TARGET_CITIES = ["北京", "深圳", "广州", "杭州", "厦门", "成都", "青岛", "沈阳", "哈尔滨"]
+# 城市梯队（用于 CSV tier 列）
+CITY_TIER = {
+    "北京": "一线核心", "深圳": "一线核心", "广州": "一线核心", "杭州": "新一线",
+    "厦门": "强二线", "成都": "新一线", "青岛": "北方二线", "沈阳": "东北二线",
+    "哈尔滨": "东北二线", "洛阳": "三线", "汕头": "三线", "湛江": "三线",
+    "徐州": "三线", "九江": "四线", "济宁": "四线",
+}
+
+# 需要转录的 15 城（一二线 9 城 + 三四线 6 城，各含 2010 与 2026 两个数据点）
+TARGET_CITIES = ["北京", "深圳", "广州", "杭州", "厦门", "成都", "青岛", "沈阳", "哈尔滨",
+                 "洛阳", "汕头", "湛江", "徐州", "九江", "济宁"]
 
 
-def parse_front_matter(text: str) -> dict:
-    """解析 YAML front-matter（--- 包裹的键值块）。"""
-    m = re.match(r"^---\n(.*?)\n---\n", text, re.S)
-    if not m:
-        return {}
-    meta = {}
-    for line in m.group(1).splitlines():
-        if ":" in line:
-            k, v = line.split(":", 1)
-            meta[k.strip()] = v.strip()
-    return meta
+def parse_front_matters(text: str) -> list:
+    """解析 YAML front-matter 块，支持一个文件内多个数据点（--- 包裹的键值块）。"""
+    blocks = re.findall(r"^---\n(.*?)\n---\n", text, re.S | re.M)
+    metas = []
+    for block in blocks:
+        meta = {}
+        for line in block.splitlines():
+            if ":" in line:
+                k, v = line.split(":", 1)
+                meta[k.strip()] = v.strip()
+        if meta:
+            metas.append(meta)
+    return metas
 
 
 def scan_raw() -> dict:
     """扫描 raw/*.md，返回 {(city, year): {metric, value, source, url, note}}。"""
     points = {}
     for f in sorted(RAW.glob("*.md")):
-        meta = parse_front_matter(f.read_text(encoding="utf-8"))
-        if not meta or "city" not in meta or "year" not in meta:
-            continue
-        key = (meta["city"], meta["year"])
-        points[key] = {
-            "metric": meta.get("metric", ""),
-            "value": meta.get("value", ""),
-            "source": meta.get("source", f.name),
-            "url": meta.get("url", ""),
-            "note": meta.get("note", ""),
-        }
+        for meta in parse_front_matters(f.read_text(encoding="utf-8")):
+            if "city" not in meta or "year" not in meta:
+                continue
+            city = CITY_ALIAS.get(meta["city"], meta["city"])
+            if city in ("三四线2010新房均价", "三四线2026二手房均价"):
+                continue  # 总表文件仅作溯源记录，不直接转录
+            key = (city, meta["year"])
+            points[key] = {
+                "metric": meta.get("metric", ""),
+                "value": meta.get("value", ""),
+                "source": meta.get("source", f.name),
+                "url": meta.get("url", ""),
+                "note": meta.get("note", ""),
+            }
     return points
 
 
@@ -91,6 +107,7 @@ def main() -> int:
 
         rows.append({
             "city": city,
+            "tier": CITY_TIER.get(city, ""),
             "price_2010": v10 if v10 is not None else "",
             "price_2026": v26 if v26 is not None else "",
             "growth_pct": growth if growth is not None else "",
@@ -101,7 +118,7 @@ def main() -> int:
         })
 
     # 写 CSV（覆盖式更新）
-    fieldnames = ["city", "price_2010", "price_2026", "growth_pct", "note_2010", "note_2026", "source_2010", "source_2026"]
+    fieldnames = ["city", "tier", "price_2010", "price_2026", "growth_pct", "note_2010", "note_2026", "source_2010", "source_2026"]
     with open(OUT_CSV, "w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fieldnames)
         w.writeheader()
@@ -118,7 +135,7 @@ def main() -> int:
         for p in problems:
             print(f"  - {p}")
         return 1
-    print("[PASS] 9 城数据点完整。")
+    print("[PASS] 15 城数据点完整。")
     return 0
 
 
