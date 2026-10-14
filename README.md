@@ -6,27 +6,29 @@
 
 | 目录 | 用途 | 当前内容 |
 |------|------|----------|
-| `raw/` | 政府、贝壳等**原始来源文件**（截图、导出表、网页存档），未加工 | 待补充 |
-| `scripts/` | 数据处理脚本（读取 raw → 产出 parsed；校验 parsed 一致性） | `validate_data.py` |
+| `raw/` | 政府、贝壳等**原始来源文件**：每个关键数据点一个 .md 记录（URL、抓取日期、关键原文摘录、口径说明），可逐条回溯 | 18 个数据源文件（9 城 2010/2026 房价成交/网签口径） |
+| `scripts/` | 数据处理脚本（读取 raw → 产出 parsed；校验 parsed 一致性） | `transcribe_raw.py`、`validate_data.py` |
 | `src/` | **人工矫正产物**：对 OCR/转录结果做人工核对修正后的中间文件 | 待补充 |
-| `parsed/` | 从 raw 经 OCR/转录等手段得到、可直接消费的**结构化数据文件** | `house_prices_data.json`、`gz_districts.csv`、`cities_comparison.csv`、`gz_price_income_history.csv` |
+| `parsed/` | 从 raw 经转录得到、可直接消费的**结构化数据文件** | `house_prices_data.json`、`gz_districts.csv`、`cities_comparison.csv`、`gz_price_income_history.csv` |
 | `dist/` | **最终交付产物**：HTML 报告及其静态资源 | `房价基本面分析报告.html`、`assets/echarts.min.js` |
 
 ## 数据流
 
 ```
-raw（原始来源）
-  → [scripts/ 转录/解析]
-  → src（人工矫正）
-  → parsed（结构化数据，本仓库当前数据所在）
+raw（原始来源，URL + 摘录 + 口径）
+  → [scripts/transcribe_raw.py 转录]   ← 从 raw front-matter 解析数据点，生成 parsed CSV
+  → parsed（结构化数据，cities_comparison.csv 为本轮主产物）
   → dist（HTML 报告内嵌同源数据，供最终消费）
 ```
 
-> 当前仓库尚未收录 raw 原始文件（此前分析数据来自公开资料整理，估算值已在各文件内逐项标注口径）。补充 raw 后，可沿上述数据流重跑。
+> 校验：`scripts/validate_data.py` 执行「CSV 数值合法性 + CSV↔JSON 交叉一致」三类校验。
 
 ## 常用命令
 
 ```bash
+# 转录 raw 数据源 → parsed/cities_comparison.csv
+python3 scripts/transcribe_raw.py
+
 # 校验 parsed 数据（数值合法性 + CSV/JSON 交叉一致性）
 python3 scripts/validate_data.py
 
@@ -36,9 +38,9 @@ open dist/房价基本面分析报告.html
 
 ## 数据口径（摘要）
 
-- 房价：二手住宅成交均价（2010 年合富置业成交数据；2019 年链家成交；2026 年挂牌价下浮 7%-8% 估算）
+- 房价：**二手住宅成交/网签口径**（2010 年各市官方成交或主流中介成交口径：北京 19186、深圳 18774、广州 12944、杭州 20058、厦门 11000；成都/青岛/沈阳/哈尔滨为多源交叉估算已标注；2026 年住建局网签、机构成交监测或平台均价：广州 24412 阳光家缘网签、深圳 57706 乐有家、杭州 26817 我爱我家、北京约 3.9 万、成都 14900、青岛 16822、沈阳 7540、哈尔滨 7200；厦门缺权威口径标注「待补」）
 - 收入：城镇居民人均可支配收入（各区/市统计局统计公报）
 - 人口：常住人口（六普 / 2025 年统计公报）
 - 供给：城镇人均住房建筑面积
 
-完整口径与已知局限见报告文末「数据口径与来源」。本仓库数据仅供研究参考，不构成购房建议。
+完整口径、逐城来源与已知局限见报告文末「数据口径与来源」及 raw/ 目录源文件。本仓库数据仅供研究参考，不构成购房建议。

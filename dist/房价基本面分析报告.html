@@ -82,6 +82,8 @@ td .dn{color:var(--green);font-weight:500}
 .file-item .f-ic{width:34px;height:34px;flex:0 0 34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
 .file-item .f-ic.json{background:#6B7C93}
 .file-item .f-ic.csv{background:var(--green)}
+.file-item .f-ic.raw{background:var(--brand)}
+.file-item .f-ic.py{background:#3A3F4C}
 .file-item .f-name{font-size:14px;font-weight:500;font-family:var(--num)}
 .file-item .f-path{font-size:12px;color:var(--muted);font-family:var(--num)}
 .file-item .f-desc{font-size:12px;color:var(--muted)}
@@ -174,12 +176,14 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
   <p class="sec-desc">本次分析全部数据已落盘到项目目录 <span style="font-family:var(--num);font-size:13px;color:var(--brand)">/Users/bytedance/Developer/hourse_prices_analysis</span>，以下文件为唯一数据源，本报告页面内嵌数据与其逐项一致。</p>
   <div class="panel">
     <div class="file-list">
+      <div class="file-item"><div class="f-ic raw">RAW</div><div><div class="f-name">raw/（18 个数据源文件）</div><div class="f-path">raw/*.md</div><div class="f-desc">北京/深圳/广州/杭州/厦门/成都/青岛/沈阳/哈尔滨 2010 与 2026 房价成交/网签口径原始来源记录（URL、抓取日期、关键摘录），可逐条回溯</div></div></div>
+      <div class="file-item"><div class="f-ic py">PY</div><div><div class="f-name">transcribe_raw.py</div><div class="f-path">scripts/transcribe_raw.py</div><div class="f-desc">从 raw/ 转录数据点 → parsed/cities_comparison.csv（9 城 2010/2026 成交均价、涨幅与来源标注），保证数据准确可复现</div></div></div>
       <div class="file-item"><div class="f-ic json">JSON</div><div><div class="f-name">house_prices_data.json</div><div class="f-path">parsed/house_prices_data.json</div><div class="f-desc">全量数据集：7区、9城、山东三城、房价收入比历史、广深收入、模型系数、结论</div></div></div>
       <div class="file-item"><div class="f-ic csv">CSV</div><div><div class="f-name">gz_districts.csv</div><div class="f-path">parsed/gz_districts.csv</div><div class="f-desc">广州 7 区房价 / 收入 / 人口 / 房价收入比</div></div></div>
-      <div class="file-item"><div class="f-ic csv">CSV</div><div><div class="f-name">cities_comparison.csv</div><div class="f-path">parsed/cities_comparison.csv</div><div class="f-desc">9 城人口 / 收入 / 房价 / 供给跨期增幅</div></div></div>
+      <div class="file-item"><div class="f-ic csv">CSV</div><div><div class="f-name">cities_comparison.csv</div><div class="f-path">parsed/cities_comparison.csv</div><div class="f-desc">9 城 2010/2026 成交均价与涨幅（transcribe_raw.py 转录产物，含来源列）</div></div></div>
       <div class="file-item"><div class="f-ic csv">CSV</div><div><div class="f-name">gz_price_income_history.csv</div><div class="f-path">parsed/gz_price_income_history.csv</div><div class="f-desc">广州房价收入比 1998-2026 历史演变</div></div></div>
     </div>
-    <p class="chart-note">数据口径：房价为二手住宅成交价（2026 年为挂牌价下浮 7%-8% 估算）；收入为城镇居民人均可支配收入；人口为常住人口；供给为人均住房建筑面积。估算值已逐项标注，详见文末「口径与来源」。</p>
+    <p class="chart-note">数据口径：房价为二手住宅成交/网签价（2010 年各市官方成交或主流中介成交口径；2026 年住建局网签、机构成交监测或平台均价口径，逐项来源见 raw/ 数据源文件）；收入为城镇居民人均可支配收入；人口为常住人口；供给为人均住房建筑面积。</p>
   </div>
 </section>
 
@@ -209,25 +213,25 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
 <!-- ===== 章节二：9城验证 ===== -->
 <section id="cities">
   <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">九城验证：人口 × 收入 × 供给规律是否普适？</h2></div>
-  <p class="sec-desc">选取一线核心、新一线、北方二线、东北人口承压四类共 9 城，对比 2010→2025/2026 的增幅，检验「人口定需求、收入定购买力、供给定稀缺性」的方向性规律。</p>
+  <p class="sec-desc">选取一线核心、新一线、北方二线、东北人口承压四类共 9 城，对比 2010→2026 的增幅（房价为二手住宅成交/网签口径，经 raw 数据源转录），检验「人口定需求、收入定购买力、供给定稀缺性」的方向性规律。</p>
   <div class="panel">
     <h3>人口增幅 × 房价涨幅：规律方向成立</h3>
     <p class="ph">横轴：常住人口 15 年增幅；纵轴：房价 16 年涨幅；气泡大小：人均住房供给增幅（越大供给越松）</p>
     <div id="chart-scatter" class="chart-box"></div>
-    <p class="chart-note">人口流入越多、供给约束越强的城市房价涨幅越高：深圳 > 广州 > 厦门 > 成都 > 青岛 > 沈阳 > 哈尔滨，无方向性反例。</p>
+    <p class="chart-note">人口流入与房价涨幅大体同向：深圳（+76% 人口 → +207% 涨幅）、北京领跑；哈尔滨人口净流出、房价不涨反跌（-5%）。青岛、沈阳人口增幅不高但涨幅居中，说明收入与供给因素亦在起作用——方向性规律成立，但并非单变量决定。</p>
   </div>
   <div class="panel">
-    <h3>模型校准前后：偏差从系统性高估到收敛</h3>
-    <p class="ph">原始模型系数（人口/收入/供给=1）系统性高估；按城市梯队校准转化系数后，平均绝对偏差从约 109% 收敛至约 15%</p>
+    <h3>模型校准前后：从系统性高估到偏差收窄</h3>
+    <p class="ph">原始模型系数（人口/收入/供给=1）系统性高估；按城市梯队校准转化系数后，平均绝对偏差从约 93% 收窄至约 46%。厦门因缺 2026 权威成交口径未纳入。</p>
     <div id="chart-deviation" class="chart-box"></div>
-    <p class="chart-note">修正后深圳、广州、厦门、青岛、沈阳按梯队系数拟合偏差已收窄至 10% 以内，剩余偏差主要来自周期位置（当前处于回调底部）。</p>
+    <p class="chart-note">数据改用成交/网签口径后，深圳、青岛、沈阳按梯队系数拟合偏差仍明显（+50~+70pp）：深圳 2010 年成交基数（1.88 万/㎡）低而涨幅高达 207%，远超收入/人口贡献；说明三变量模型对涨幅量级的解释力有限，仅方向性规律稳健。</p>
   </div>
   <div class="panel">
     <h3>9 城数据明细</h3>
     <div class="tbl-scroll">
       <table>
-        <colgroup><col style="width:12%"><col style="width:13%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>
-        <thead><tr><th>城市</th><th>类型</th><th>常住人口增幅</th><th>收入增幅</th><th>房价实际涨幅</th><th>供给增幅</th><th>方向判断</th></tr></thead>
+        <colgroup><col style="width:12%"><col style="width:13%"><col style="width:12%"><col style="width:12%"><col style="width:13%"><col style="width:13%"><col style="width:12%"><col style="width:13%"></colgroup>
+        <thead><tr><th>城市</th><th>类型</th><th>2010 均价<br>(元/㎡)</th><th>2026 均价<br>(元/㎡)</th><th>房价涨幅<br>10→26</th><th>收入增幅<br>10→25</th><th>人口增幅<br>10→25</th><th>方向判断</th></tr></thead>
         <tbody id="tbl-cities"></tbody>
       </table>
     </div>
@@ -252,7 +256,7 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
 <!-- ===== 章节四：模型框架 ===== -->
 <section id="model">
   <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">定价模型：三变量与系数校准</h2></div>
-  <p class="sec-desc">保持「常住人口、人均收入、住房供给」三个特征不变，仅按城市梯队校准转化系数，即可消除系统性高估。</p>
+  <p class="sec-desc">保持「常住人口、人均收入、住房供给」三个特征不变，仅按城市梯队校准转化系数，可显著收窄原始模型的系统性高估；但量级拟合能力有限，系数为示意校准而非严谨回归。</p>
   <div class="panel">
     <h3>模型公式</h3>
     <div class="formula">
@@ -305,9 +309,9 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
     <div>
       <h4>数据口径与来源</h4>
       <ul>
-        <li>房价-2010：合富置业历史成交数据（当年主流中介成交均价，官方媒体普遍引用口径）</li>
+        <li>房价-2010（二手住宅成交口径）：北京 19186（北京房地产交易管理网，央视网引）、深圳 18774（深圳中原，中新网引）、广州 12944（合富置业成交）、杭州 20058（市场成交，中新网引）、厦门 11000（厦门国土房产局商品住房均价，台海网引）；成都 7500、青岛 8500、沈阳 3800、哈尔滨 7550 为多源交叉估算（挂牌价下浮/官方分区数据加权，已标注，详见 raw/）</li>
         <li>房价-2019：链家实际成交备案数据</li>
-        <li>房价-2026：贝壳 / 58 同城挂牌价下浮 7%-8% 估算成交价（当前市场议价空间 5%-10%）</li>
+        <li>房价-2026（二手住宅成交/网签口径）：北京约 3.9 万（2026-07 机构成交监测）、深圳 57706（乐有家 2026-08，深圳政府在线转载）、广州 24412（阳光家缘网签 2026 上半年，南方+引住建局数据）、杭州 26817（我爱我家 2026 上半年，21财经引）、成都 14900（城市房产网）、青岛 16822（房天下参考均价）、沈阳 7540（58 同城）、哈尔滨 7200（58 同城/房天下）；厦门缺全市权威口径，标注「待补」</li>
         <li>收入：各市 / 各区统计局统计公报，城镇居民人均可支配收入（个别缺失年份按相邻年份增速推算，误差 ±2% 内）</li>
         <li>人口：第六次人口普查及 2025 年各市统计公报常住人口</li>
         <li>供给：各市统计公报城镇人均住房建筑面积</li>
@@ -339,15 +343,15 @@ const DATA = {
     {d:"黄埔",p10:8975,p19:19270,p26:23000,i10:27800,i19:66253,i25:86784,pop10:65.15,pop25:125.08,pi19:10.4,pi26:8.5}
   ],
   cities: [
-    {c:"北京",t:"一线核心",pg:11.2,ig:231.2,pr:46.4,sg:19.5},
-    {c:"深圳",t:"一线核心",pg:75.9,ig:162.3,pr:172.1,sg:42.9},
-    {c:"广州",t:"一线核心",pg:50.4,ig:180.7,pr:116.0,sg:65.9},
-    {c:"杭州",t:"新一线",pg:46.0,ig:188.5,pr:27.8,sg:18.3},
-    {c:"厦门",t:"强二线",pg:51.9,ig:172.5,pr:98.6,sg:16.7},
-    {c:"成都",t:"新一线",pg:52.4,ig:198.7,pr:58.6,sg:45.0},
-    {c:"青岛",t:"北方二线",pg:18.7,ig:186.8,pr:71.4,sg:28.4},
-    {c:"沈阳",t:"东北二线",pg:14.4,ig:128.4,pr:42.9,sg:29.0},
-    {c:"哈尔滨",t:"东北二线",pg:-7.0,ig:167.2,pr:30.4,sg:15.3}
+    {c:"北京",t:"一线核心",pg:11.2,ig:231.2,p10:19186,p26:39000,pr:103.3,sg:19.5},
+    {c:"深圳",t:"一线核心",pg:75.9,ig:162.3,p10:18774,p26:57706,pr:207.4,sg:42.9},
+    {c:"广州",t:"一线核心",pg:50.4,ig:180.7,p10:12944,p26:24412,pr:88.6,sg:65.9},
+    {c:"杭州",t:"新一线",pg:46.0,ig:188.5,p10:20058,p26:26817,pr:33.7,sg:18.3},
+    {c:"厦门",t:"强二线",pg:51.9,ig:172.5,p10:11000,p26:null,pr:null,sg:16.7},
+    {c:"成都",t:"新一线",pg:52.4,ig:198.7,p10:7500,p26:14900,pr:98.7,sg:45.0},
+    {c:"青岛",t:"北方二线",pg:18.7,ig:186.8,p10:8500,p26:16822,pr:97.9,sg:28.4},
+    {c:"沈阳",t:"东北二线",pg:14.4,ig:128.4,p10:3800,p26:7540,pr:98.4,sg:29.0},
+    {c:"哈尔滨",t:"东北二线",pg:-7.0,ig:167.2,p10:7550,p26:7200,pr:-4.6,sg:15.3}
   ],
   history: [
     {stage:"房改起步期",y:1998,r:5.5,n:"商品房市场启动初期，估值完全合理"},
@@ -360,9 +364,9 @@ const DATA = {
     {stage:"回归期",y:2026,r:9.5,n:"房价下跌+收入增长双重消化，接近合理区间"}
   ],
   deviation: [
-    {c:"北京",b:-176.5,a:-24.0},{c:"深圳",b:-23.2,a:-8.0},{c:"广州",b:-49.2,a:10.0},
-    {c:"杭州",b:-188.4,a:-42.1},{c:"厦门",b:-109.1,a:5.0},{c:"成都",b:-147.5,a:-12.6},
-    {c:"青岛",b:-105.7,a:-5.0},{c:"沈阳",b:-70.9,a:3.7},{c:"哈尔滨",b:-114.5,a:-15.0}
+    {c:"北京",b:-119.6,a:-37.4},{c:"深圳",b:12.1,a:69.8},{c:"广州",b:-76.6,a:-35.3},
+    {c:"杭州",b:-182.5,a:-36.2},{c:"成都",b:-107.4,a:27.5},{c:"青岛",b:-79.2,a:50.3},
+    {c:"沈阳",b:-15.4,a:66.3},{c:"哈尔滨",b:-149.5,a:-43.5}
   ],
   income: [
     {m:"城镇居民人均\n可支配收入",gz:86069,sz:84945,h:"广州"},
@@ -377,9 +381,9 @@ const DATA = {
   conclusions: [
     {t:"广州 7 区均价回到 2019 年线",n:"核心四区 7 年基本零涨幅，外围三区已低于 2019 年；全市估值溢价约 6%，接近合理区间"},
     {t:"房价收入比回落至 9.5 倍",n:"从 2021 年峰值 15.8 倍持续回归，接近 6-9 倍合理区间上限，大幅普跌空间有限"},
-    {t:"三变量规律方向普适成立",n:"人口流入+收入增长+供给约束的方向性规律在 9 城无反例，但涨幅量级需按梯队校准转化系数"},
+    {t:"三变量规律方向普适成立",n:"人口流入+收入增长+供给约束的方向性规律在 8 城（厦门缺 2026 权威口径）无方向性反例，但涨幅量级拟合有限，示意系数不构成严谨回归"},
     {t:"珠江新城跌幅接近东京初期",n:"2022→2026 累计约 -47%，量级接近东京核心区泡沫破裂头 4 年，但属局部估值修复+主动调控，性质不同"},
-    {t:"人口流失城市风险最集中",n:"哈尔滨收入增长但房价仅涨 30%，远低于理论值，是长期低迷风险最高的城市类型"}
+    {t:"人口流失城市风险最集中",n:"哈尔滨收入增长但房价不涨反跌（2010→2026 约 -5%），远低于理论值，是长期低迷风险最高的城市类型"}
   ]
 };
 
@@ -396,8 +400,10 @@ function pct(n){return (n>0?'+':'')+n.toFixed(1)+'%'}
 
   const tc=document.getElementById('tbl-cities');
   tc.innerHTML=DATA.cities.map(x=>{
-    const judge = x.pr >= 70 ? '涨幅领先' : (x.pr >= 40 ? '温和上涨' : '涨幅滞后');
-    return `<tr><td>${x.c}</td><td>${x.t}</td><td class="${x.pg>0?'up':'dn'}">${pct(x.pg)}</td><td class="up">${pct(x.ig)}</td><td class="${x.pr>0?'up':'dn'}">${pct(x.pr)}</td><td>${pct(x.sg)}</td><td>${judge}</td></tr>`;
+    const p26s = x.p26===null ? '<span style="color:#999">待补</span>' : fmt(x.p26);
+    const prs = x.pr===null ? '<span style="color:#999">—</span>' : `<span class="${x.pr>0?'up':'dn'}">${pct(x.pr)}</span>`;
+    const judge = x.pr===null ? '—' : (x.pr >= 70 ? '涨幅领先' : (x.pr >= 40 ? '温和上涨' : '涨幅滞后'));
+    return `<tr><td>${x.c}</td><td>${x.t}</td><td>${fmt(x.p10)}</td><td>${p26s}</td><td>${prs}</td><td class="up">${pct(x.ig)}</td><td class="${x.pg>0?'up':'dn'}">${pct(x.pg)}</td><td>${judge}</td></tr>`;
   }).join('');
 
   const tco=document.getElementById('tbl-coef');
@@ -443,9 +449,9 @@ function tip(extra){return Object.assign({trigger:'axis',backgroundColor:'rgba(2
     xAxis:Object.assign({},AXIS,{type:'value',name:'常住人口 15 年增幅 %',nameTextStyle:{color:MUTED,fontSize:11},min:-20,max:100}),
     yAxis:Object.assign({},AXIS,{type:'value',name:'房价 16 年涨幅 %',nameTextStyle:{color:MUTED,fontSize:11},min:0,max:220}),
     series:[
-      {type:'scatter',name:'一线核心',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.t==='一线核心').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:BRAND,opacity:.85}},
-      {type:'scatter',name:'新一线',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.t==='新一线').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:GOLD,opacity:.85}},
-      {type:'scatter',name:'二线/其他',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.t!=='一线核心'&&x.t!=='新一线').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:GREEN,opacity:.85}}
+      {type:'scatter',name:'一线核心',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.pr!==null&&x.t==='一线核心').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:BRAND,opacity:.85}},
+      {type:'scatter',name:'新一线',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.pr!==null&&x.t==='新一线').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:GOLD,opacity:.85}},
+      {type:'scatter',name:'二线/其他',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.pr!==null&&x.t!=='一线核心'&&x.t!=='新一线').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:GREEN,opacity:.85}}
     ]
   });
 })();

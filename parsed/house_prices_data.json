@@ -29,18 +29,18 @@
     ]
   },
   "cities": {
-    "description": "9个代表性城市人口/收入/房价/供给跨期对比（2010 vs 2025/2026）",
-    "note": "增幅为区间累计增幅（%）；房价为二手住宅成交价口径；2026年房价按挂牌价下浮7%-8%估算。",
+    "description": "9个代表性城市房价跨期对比（2010 vs 2026），房价为二手住宅成交/网签口径",
+    "note": "价格与涨幅经 scripts/transcribe_raw.py 从 raw/ 数据源转录；人口/收入/供给增幅为统计公报口径。price_growth 为空表示缺权威口径。",
     "records": [
-      {"city": "北京", "type": "一线核心", "pop_growth": 11.2, "income_growth": 231.2, "price_growth": 46.4, "supply_growth": 19.5},
-      {"city": "深圳", "type": "一线核心", "pop_growth": 75.9, "income_growth": 162.3, "price_growth": 172.1, "supply_growth": 42.9},
-      {"city": "广州", "type": "一线核心", "pop_growth": 50.4, "income_growth": 180.7, "price_growth": 116.0, "supply_growth": 65.9},
-      {"city": "杭州", "type": "新一线", "pop_growth": 46.0, "income_growth": 188.5, "price_growth": 27.8, "supply_growth": 18.3},
-      {"city": "厦门", "type": "强二线", "pop_growth": 51.9, "income_growth": 172.5, "price_growth": 98.6, "supply_growth": 16.7},
-      {"city": "成都", "type": "新一线", "pop_growth": 52.4, "income_growth": 198.7, "price_growth": 58.6, "supply_growth": 45.0},
-      {"city": "青岛", "type": "北方二线", "pop_growth": 18.7, "income_growth": 186.8, "price_growth": 71.4, "supply_growth": 28.4},
-      {"city": "沈阳", "type": "东北二线", "pop_growth": 14.4, "income_growth": 128.4, "price_growth": 42.9, "supply_growth": 29.0},
-      {"city": "哈尔滨", "type": "东北二线", "pop_growth": -7.0, "income_growth": 167.2, "price_growth": 30.4, "supply_growth": 15.3}
+      {"city": "北京", "type": "一线核心", "pop_growth": 11.2, "income_growth": 231.2, "price_2010": 19186, "price_2026": 39000, "price_growth": 103.3, "supply_growth": 19.5},
+      {"city": "深圳", "type": "一线核心", "pop_growth": 75.9, "income_growth": 162.3, "price_2010": 18774, "price_2026": 57706, "price_growth": 207.4, "supply_growth": 42.9},
+      {"city": "广州", "type": "一线核心", "pop_growth": 50.4, "income_growth": 180.7, "price_2010": 12944, "price_2026": 24412, "price_growth": 88.6, "supply_growth": 65.9},
+      {"city": "杭州", "type": "新一线", "pop_growth": 46.0, "income_growth": 188.5, "price_2010": 20058, "price_2026": 26817, "price_growth": 33.7, "supply_growth": 18.3},
+      {"city": "厦门", "type": "强二线", "pop_growth": 51.9, "income_growth": 172.5, "price_2010": 11000, "price_2026": null, "price_growth": null, "supply_growth": 16.7},
+      {"city": "成都", "type": "新一线", "pop_growth": 52.4, "income_growth": 198.7, "price_2010": 7500, "price_2026": 14900, "price_growth": 98.7, "supply_growth": 45.0},
+      {"city": "青岛", "type": "北方二线", "pop_growth": 18.7, "income_growth": 186.8, "price_2010": 8500, "price_2026": 16822, "price_growth": 97.9, "supply_growth": 28.4},
+      {"city": "沈阳", "type": "东北二线", "pop_growth": 14.4, "income_growth": 128.4, "price_2010": 3800, "price_2026": 7540, "price_growth": 98.4, "supply_growth": 29.0},
+      {"city": "哈尔滨", "type": "东北二线", "pop_growth": -7.0, "income_growth": 167.2, "price_2010": 7550, "price_2026": 7200, "price_growth": -4.6, "supply_growth": 15.3}
     ]
   },
   "shandong_cities": {
