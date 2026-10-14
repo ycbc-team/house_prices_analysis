@@ -23,7 +23,7 @@ CSV_FILES = {
     "gz_districts.csv": {"min_rows": 7, "numeric_cols": ["price_2010", "price_2019", "price_2026_est",
                                                           "income_2010", "income_2019", "income_2025",
                                                           "pop_2010", "pop_2025", "price_income_2019", "price_income_2026"]},
-    "cities_comparison.csv": {"min_rows": 15, "numeric_cols": ["price_2010", "price_2026", "growth_pct"], "allow_empty_cols": ["price_2026", "growth_pct"]},
+    "cities_comparison.csv": {"min_rows": 21, "numeric_cols": ["price_2010", "price_2026", "growth_pct"], "allow_empty_cols": ["price_2026", "growth_pct"]},
     "gz_price_income_history.csv": {"min_rows": 8, "numeric_cols": ["year", "ratio"]},
 }
 

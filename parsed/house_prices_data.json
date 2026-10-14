@@ -19,65 +19,423 @@
     "description": "广州7区房价与基本面数据（2010/2019/2026）",
     "note": "2019年房价为链家成交均价；2026年房价为挂牌价下浮8%估算成交价；部分收入为相邻年份增速推算值（误差±2%内）。",
     "records": [
-      {"district": "越秀", "price_2010": 13800, "price_2019": 45445, "price_2026_est": 47700, "income_2010": 31068, "income_2019": 67850, "income_2025": 88200, "pop_2010": 115.73, "pop_2025": 97.16, "price_income_2019": 21.5, "price_income_2026": 17.3},
-      {"district": "天河", "price_2010": 17844, "price_2019": 49811, "price_2026_est": 45500, "income_2010": 31431, "income_2019": 74859, "income_2025": 101218, "pop_2010": 143.25, "pop_2025": 225.60, "price_income_2019": 21.4, "price_income_2026": 14.5},
-      {"district": "海珠", "price_2010": 15330, "price_2019": 37562, "price_2026_est": 36200, "income_2010": 28754, "income_2019": 65720, "income_2025": 92691, "pop_2010": 155.87, "pop_2025": 177.07, "price_income_2019": 19.4, "price_income_2026": 12.5},
-      {"district": "荔湾", "price_2010": 12515, "price_2019": 32613, "price_2026_est": 33500, "income_2010": 29947, "income_2019": 68468, "income_2025": 86800, "pop_2010": 89.82, "pop_2025": 112.90, "price_income_2019": 17.0, "price_income_2026": 12.4},
-      {"district": "白云", "price_2010": 10700, "price_2019": 28617, "price_2026_est": 24900, "income_2010": 27200, "income_2019": 66302, "income_2025": 81805, "pop_2010": 222.27, "pop_2025": 373.19, "price_income_2019": 15.4, "price_income_2026": 9.7},
-      {"district": "番禺", "price_2010": 9960, "price_2019": 25610, "price_2026_est": 21300, "income_2010": 26800, "income_2019": 61987, "income_2025": 81913, "pop_2010": 176.49, "pop_2025": 287.23, "price_income_2019": 14.7, "price_income_2026": 8.4},
-      {"district": "黄埔", "price_2010": 8975, "price_2019": 19270, "price_2026_est": 23000, "income_2010": 27800, "income_2019": 66253, "income_2025": 86784, "pop_2010": 65.15, "pop_2025": 125.08, "price_income_2019": 10.4, "price_income_2026": 8.5}
+      {
+        "district": "越秀",
+        "price_2010": 13800,
+        "price_2019": 45445,
+        "price_2026_est": 47700,
+        "income_2010": 31068,
+        "income_2019": 67850,
+        "income_2025": 88200,
+        "pop_2010": 115.73,
+        "pop_2025": 97.16,
+        "price_income_2019": 21.5,
+        "price_income_2026": 17.3
+      },
+      {
+        "district": "天河",
+        "price_2010": 17844,
+        "price_2019": 49811,
+        "price_2026_est": 45500,
+        "income_2010": 31431,
+        "income_2019": 74859,
+        "income_2025": 101218,
+        "pop_2010": 143.25,
+        "pop_2025": 225.6,
+        "price_income_2019": 21.4,
+        "price_income_2026": 14.5
+      },
+      {
+        "district": "海珠",
+        "price_2010": 15330,
+        "price_2019": 37562,
+        "price_2026_est": 36200,
+        "income_2010": 28754,
+        "income_2019": 65720,
+        "income_2025": 92691,
+        "pop_2010": 155.87,
+        "pop_2025": 177.07,
+        "price_income_2019": 19.4,
+        "price_income_2026": 12.5
+      },
+      {
+        "district": "荔湾",
+        "price_2010": 12515,
+        "price_2019": 32613,
+        "price_2026_est": 33500,
+        "income_2010": 29947,
+        "income_2019": 68468,
+        "income_2025": 86800,
+        "pop_2010": 89.82,
+        "pop_2025": 112.9,
+        "price_income_2019": 17.0,
+        "price_income_2026": 12.4
+      },
+      {
+        "district": "白云",
+        "price_2010": 10700,
+        "price_2019": 28617,
+        "price_2026_est": 24900,
+        "income_2010": 27200,
+        "income_2019": 66302,
+        "income_2025": 81805,
+        "pop_2010": 222.27,
+        "pop_2025": 373.19,
+        "price_income_2019": 15.4,
+        "price_income_2026": 9.7
+      },
+      {
+        "district": "番禺",
+        "price_2010": 9960,
+        "price_2019": 25610,
+        "price_2026_est": 21300,
+        "income_2010": 26800,
+        "income_2019": 61987,
+        "income_2025": 81913,
+        "pop_2010": 176.49,
+        "pop_2025": 287.23,
+        "price_income_2019": 14.7,
+        "price_income_2026": 8.4
+      },
+      {
+        "district": "黄埔",
+        "price_2010": 8975,
+        "price_2019": 19270,
+        "price_2026_est": 23000,
+        "income_2010": 27800,
+        "income_2019": 66253,
+        "income_2025": 86784,
+        "pop_2010": 65.15,
+        "pop_2025": 125.08,
+        "price_income_2019": 10.4,
+        "price_income_2026": 8.5
+      }
     ]
   },
   "cities": {
-    "description": "15个代表性城市房价跨期对比（2010 vs 2026）：一线/新一线/二线 9 城 + 三四线 6 城",
-    "note": "价格与涨幅经 scripts/transcribe_raw.py 从 raw/ 数据源转录；一二线 2026 为成交/网签口径，三四线 2010 为新房均价排行口径、2026 为鸥维数据参考口径（已标注）。人口/收入增幅为统计公报口径。price_growth 为空表示缺权威口径。supply_growth 为空表示数据缺省。",
+    "description": "21个代表性城市房价跨期对比（2010 vs 2026）：一线/新一线/二线 15 城 + 三四线 6 城",
+    "note": "价格与涨幅经 scripts/transcribe_raw.py 从 raw/ 数据源转录；2026 价为成交/网签口径或鸥维参考口径（已标注，长沙为贝壳成交价）；新增 6 城 2010 为新房均价排行口径（与既有 9 城二手成交口径存在系统差，新房口径基数略高）；人口/收入增幅为统计公报口径。price_growth 为空表示缺权威口径。supply_growth 为空表示数据缺省。",
     "records": [
-      {"city": "北京", "type": "一线核心", "pop_growth": 11.2, "income_growth": 231.2, "price_2010": 19186, "price_2026": 39000, "price_growth": 103.3, "supply_growth": 19.5},
-      {"city": "深圳", "type": "一线核心", "pop_growth": 75.9, "income_growth": 162.3, "price_2010": 18774, "price_2026": 57706, "price_growth": 207.4, "supply_growth": 42.9},
-      {"city": "广州", "type": "一线核心", "pop_growth": 50.4, "income_growth": 180.7, "price_2010": 12944, "price_2026": 24412, "price_growth": 88.6, "supply_growth": 65.9},
-      {"city": "杭州", "type": "新一线", "pop_growth": 46.0, "income_growth": 188.5, "price_2010": 20058, "price_2026": 26817, "price_growth": 33.7, "supply_growth": 18.3},
-      {"city": "厦门", "type": "强二线", "pop_growth": 51.9, "income_growth": 172.5, "price_2010": 11000, "price_2026": null, "price_growth": null, "supply_growth": 16.7},
-      {"city": "成都", "type": "新一线", "pop_growth": 52.4, "income_growth": 198.7, "price_2010": 7500, "price_2026": 14900, "price_growth": 98.7, "supply_growth": 45.0},
-      {"city": "青岛", "type": "北方二线", "pop_growth": 18.7, "income_growth": 186.8, "price_2010": 8500, "price_2026": 16822, "price_growth": 97.9, "supply_growth": 28.4},
-      {"city": "沈阳", "type": "东北二线", "pop_growth": 14.4, "income_growth": 128.4, "price_2010": 3800, "price_2026": 7540, "price_growth": 98.4, "supply_growth": 29.0},
-      {"city": "哈尔滨", "type": "东北二线", "pop_growth": -7.0, "income_growth": 167.2, "price_2010": 7550, "price_2026": 7200, "price_growth": -4.6, "supply_growth": 15.3},
-      {"city": "洛阳", "type": "三线", "pop_growth": 8.1, "income_growth": 182.8, "price_2010": 4207, "price_2026": 7096, "price_growth": 68.7, "supply_growth": null},
-      {"city": "汕头", "type": "三线", "pop_growth": 3.4, "income_growth": 167.3, "price_2010": 4330, "price_2026": 10287, "price_growth": 137.6, "supply_growth": null},
-      {"city": "湛江", "type": "三线", "pop_growth": 1.9, "income_growth": 161.0, "price_2010": 4772, "price_2026": 8375, "price_growth": 75.5, "supply_growth": null},
-      {"city": "徐州", "type": "三线", "pop_growth": 4.5, "income_growth": 192.2, "price_2010": 4632, "price_2026": 7718, "price_growth": 66.6, "supply_growth": null},
-      {"city": "九江", "type": "四线", "pop_growth": -5.2, "income_growth": 225.4, "price_2010": 4771, "price_2026": 6942, "price_growth": 45.5, "supply_growth": null},
-      {"city": "济宁", "type": "四线", "pop_growth": 0.6, "income_growth": 193.2, "price_2010": 3950, "price_2026": 6349, "price_growth": 60.7, "supply_growth": null}
+      {
+        "city": "北京",
+        "type": "一线核心",
+        "pop_growth": 11.2,
+        "income_growth": 231.2,
+        "price_2010": 19186,
+        "price_2026": 39000,
+        "price_growth": 103.3,
+        "supply_growth": 19.5
+      },
+      {
+        "city": "深圳",
+        "type": "一线核心",
+        "pop_growth": 75.9,
+        "income_growth": 162.3,
+        "price_2010": 18774,
+        "price_2026": 57706,
+        "price_growth": 207.4,
+        "supply_growth": 42.9
+      },
+      {
+        "city": "广州",
+        "type": "一线核心",
+        "pop_growth": 50.4,
+        "income_growth": 180.7,
+        "price_2010": 12944,
+        "price_2026": 24412,
+        "price_growth": 88.6,
+        "supply_growth": 65.9
+      },
+      {
+        "city": "杭州",
+        "type": "新一线",
+        "pop_growth": 46.0,
+        "income_growth": 188.5,
+        "price_2010": 20058,
+        "price_2026": 26817,
+        "price_growth": 33.7,
+        "supply_growth": 18.3
+      },
+      {
+        "city": "厦门",
+        "type": "强二线",
+        "pop_growth": 51.9,
+        "income_growth": 172.5,
+        "price_2010": 11000,
+        "price_2026": null,
+        "price_growth": null,
+        "supply_growth": 16.7
+      },
+      {
+        "city": "成都",
+        "type": "新一线",
+        "pop_growth": 52.4,
+        "income_growth": 198.7,
+        "price_2010": 7500,
+        "price_2026": 14900,
+        "price_growth": 98.7,
+        "supply_growth": 45.0
+      },
+      {
+        "city": "青岛",
+        "type": "北方二线",
+        "pop_growth": 18.7,
+        "income_growth": 186.8,
+        "price_2010": 8500,
+        "price_2026": 16822,
+        "price_growth": 97.9,
+        "supply_growth": 28.4
+      },
+      {
+        "city": "沈阳",
+        "type": "东北二线",
+        "pop_growth": 14.4,
+        "income_growth": 128.4,
+        "price_2010": 3800,
+        "price_2026": 7540,
+        "price_growth": 98.4,
+        "supply_growth": 29.0
+      },
+      {
+        "city": "哈尔滨",
+        "type": "东北二线",
+        "pop_growth": -7.0,
+        "income_growth": 167.2,
+        "price_2010": 7550,
+        "price_2026": 7200,
+        "price_growth": -4.6,
+        "supply_growth": 15.3
+      },
+      {
+        "city": "洛阳",
+        "type": "三线",
+        "pop_growth": 8.1,
+        "income_growth": 182.8,
+        "price_2010": 4207,
+        "price_2026": 7096,
+        "price_growth": 68.7,
+        "supply_growth": null
+      },
+      {
+        "city": "汕头",
+        "type": "三线",
+        "pop_growth": 3.4,
+        "income_growth": 167.3,
+        "price_2010": 4330,
+        "price_2026": 10287,
+        "price_growth": 137.6,
+        "supply_growth": null
+      },
+      {
+        "city": "湛江",
+        "type": "三线",
+        "pop_growth": 1.9,
+        "income_growth": 161.0,
+        "price_2010": 4772,
+        "price_2026": 8375,
+        "price_growth": 75.5,
+        "supply_growth": null
+      },
+      {
+        "city": "徐州",
+        "type": "三线",
+        "pop_growth": 4.5,
+        "income_growth": 192.2,
+        "price_2010": 4632,
+        "price_2026": 7718,
+        "price_growth": 66.6,
+        "supply_growth": null
+      },
+      {
+        "city": "九江",
+        "type": "四线",
+        "pop_growth": -5.2,
+        "income_growth": 225.4,
+        "price_2010": 4771,
+        "price_2026": 6942,
+        "price_growth": 45.5,
+        "supply_growth": null
+      },
+      {
+        "city": "济宁",
+        "type": "四线",
+        "pop_growth": 0.6,
+        "income_growth": 193.2,
+        "price_2010": 3950,
+        "price_2026": 6349,
+        "price_growth": 60.7,
+        "supply_growth": null
+      },
+      {
+        "city": "上海",
+        "type": "一线核心",
+        "pop_growth": 8.0,
+        "income_growth": 204.2,
+        "price_2010": 19168,
+        "price_2026": 57428,
+        "price_growth": 199.6,
+        "supply_growth": null
+      },
+      {
+        "city": "重庆",
+        "type": "新一线",
+        "pop_growth": 10.5,
+        "income_growth": 195.8,
+        "price_2010": 5720,
+        "price_2026": 9098,
+        "price_growth": 59.1,
+        "supply_growth": null
+      },
+      {
+        "city": "武汉",
+        "type": "新一线",
+        "pop_growth": 41.7,
+        "income_growth": 223.2,
+        "price_2010": 6196,
+        "price_2026": 12022,
+        "price_growth": 94.0,
+        "supply_growth": null
+      },
+      {
+        "city": "南京",
+        "type": "新一线",
+        "pop_growth": 20.4,
+        "income_growth": 204.9,
+        "price_2010": 12016,
+        "price_2026": 21925,
+        "price_growth": 82.5,
+        "supply_growth": null
+      },
+      {
+        "city": "天津",
+        "type": "北方二线",
+        "pop_growth": 5.3,
+        "income_growth": 147.4,
+        "price_2010": 8958,
+        "price_2026": 18021,
+        "price_growth": 101.2,
+        "supply_growth": null
+      },
+      {
+        "city": "长沙",
+        "type": "新一线",
+        "pop_growth": 52.2,
+        "income_growth": 216.1,
+        "price_2010": 5339,
+        "price_2026": 8000,
+        "price_growth": 49.8,
+        "supply_growth": null
+      }
     ]
   },
   "shandong_cities": {
     "description": "山东三城验证样本（济南/青岛/菏泽）",
     "records": [
-      {"city": "济南", "type": "省会", "pop_growth": 41.1, "income_growth": 169.1, "price_growth": 75.3, "supply_growth": 23.4},
-      {"city": "青岛", "type": "沿海二线", "pop_growth": 18.7, "income_growth": 186.8, "price_growth": 71.4, "supply_growth": 28.4},
-      {"city": "菏泽", "type": "三四线", "pop_growth": 2.7, "income_growth": 159.4, "price_growth": 62.5, "supply_growth": 35.5}
+      {
+        "city": "济南",
+        "type": "省会",
+        "pop_growth": 41.1,
+        "income_growth": 169.1,
+        "price_growth": 75.3,
+        "supply_growth": 23.4
+      },
+      {
+        "city": "青岛",
+        "type": "沿海二线",
+        "pop_growth": 18.7,
+        "income_growth": 186.8,
+        "price_growth": 71.4,
+        "supply_growth": 28.4
+      },
+      {
+        "city": "菏泽",
+        "type": "三四线",
+        "pop_growth": 2.7,
+        "income_growth": 159.4,
+        "price_growth": 62.5,
+        "supply_growth": 35.5
+      }
     ]
   },
   "gz_price_income_history": {
     "description": "广州房价收入比历史演变（1998-2026，五轮周期）",
     "note": "口径：90平方米商品住宅套均总价 ÷ 城镇家庭年可支配收入（人均收入×户均2.8人）。",
     "records": [
-      {"stage": "房改起步期", "year": 1998, "ratio": 5.5, "note": "商品房市场启动初期，估值完全合理"},
-      {"stage": "房改起步期", "year": 2003, "ratio": 6.8, "note": "房价与收入同步增长，无溢价"},
-      {"stage": "快速上涨期", "year": 2010, "ratio": 12.3, "note": "四万亿+城镇化加速，首次大幅跑赢收入"},
-      {"stage": "调控震荡期", "year": 2012, "ratio": 10.5, "note": "限购限贷调控，横盘挤泡沫"},
-      {"stage": "调控震荡期", "year": 2015, "ratio": 11.5, "note": "高位震荡，估值溢价约20%"},
-      {"stage": "冲顶期", "year": 2019, "ratio": 13.5, "note": "估值偏高，纯估值溢价约30%"},
-      {"stage": "冲顶期", "year": 2021, "ratio": 15.8, "note": "历史峰值，估值溢价超50%"},
-      {"stage": "回归期", "year": 2026, "ratio": 9.5, "note": "房价下跌+收入增长双重消化，接近合理区间"}
+      {
+        "stage": "房改起步期",
+        "year": 1998,
+        "ratio": 5.5,
+        "note": "商品房市场启动初期，估值完全合理"
+      },
+      {
+        "stage": "房改起步期",
+        "year": 2003,
+        "ratio": 6.8,
+        "note": "房价与收入同步增长，无溢价"
+      },
+      {
+        "stage": "快速上涨期",
+        "year": 2010,
+        "ratio": 12.3,
+        "note": "四万亿+城镇化加速，首次大幅跑赢收入"
+      },
+      {
+        "stage": "调控震荡期",
+        "year": 2012,
+        "ratio": 10.5,
+        "note": "限购限贷调控，横盘挤泡沫"
+      },
+      {
+        "stage": "调控震荡期",
+        "year": 2015,
+        "ratio": 11.5,
+        "note": "高位震荡，估值溢价约20%"
+      },
+      {
+        "stage": "冲顶期",
+        "year": 2019,
+        "ratio": 13.5,
+        "note": "估值偏高，纯估值溢价约30%"
+      },
+      {
+        "stage": "冲顶期",
+        "year": 2021,
+        "ratio": 15.8,
+        "note": "历史峰值，估值溢价超50%"
+      },
+      {
+        "stage": "回归期",
+        "year": 2026,
+        "ratio": 9.5,
+        "note": "房价下跌+收入增长双重消化，接近合理区间"
+      }
     ]
   },
   "gs_shenzhen_income": {
     "description": "广州与深圳收入口径对比（2025年）",
     "note": "城镇居民人均可支配收入广州略高源于统计分母差异（深圳城镇化率99.79%，全域纳入统计含大量外来务工中低收入群体）；全体居民口径深圳更高；工资口径深圳显著更高。",
     "records": [
-      {"metric": "城镇居民人均可支配收入", "guangzhou": 86069, "shenzhen": 84945, "higher": "广州", "note": "差异+1.3%，统计分母不同"},
-      {"metric": "全体居民人均可支配收入", "guangzhou": 80591, "shenzhen": 84945, "higher": "深圳", "note": "深圳+5.4%，更符合大众体感"},
-      {"metric": "城镇在岗职工平均工资", "guangzhou": 123000, "shenzhen": 152000, "higher": "深圳", "note": "深圳+23.6%，职场体感核心口径"}
+      {
+        "metric": "城镇居民人均可支配收入",
+        "guangzhou": 86069,
+        "shenzhen": 84945,
+        "higher": "广州",
+        "note": "差异+1.3%，统计分母不同"
+      },
+      {
+        "metric": "全体居民人均可支配收入",
+        "guangzhou": 80591,
+        "shenzhen": 84945,
+        "higher": "深圳",
+        "note": "深圳+5.4%，更符合大众体感"
+      },
+      {
+        "metric": "城镇在岗职工平均工资",
+        "guangzhou": 123000,
+        "shenzhen": 152000,
+        "higher": "深圳",
+        "note": "深圳+23.6%，职场体感核心口径"
+      }
     ]
   },
   "model": {
@@ -85,41 +443,256 @@
     "formula_base": "房价长期涨幅 ≈ 人口增长 + 收入增长 - 供给增长",
     "formula_calibrated": "理论房价涨幅 = 0.35×常住人口增幅 + 0.30×收入增幅 - 0.15×人均住房供给增幅（全局统一系数，全部城市一致）",
     "coefficients": [
-      {"tier": "全局统一系数", "pop_coef": 0.35, "income_coef": 0.30, "supply_coef": -0.15, "note": "转化效率全局一致，城市等级差异由人口/收入数据本身承载，不单独引入梯队特征"},
-      {"tier": "系数含义", "pop_coef": 0.35, "income_coef": 0.30, "supply_coef": -0.15, "note": "人口增长不100%转化为购房需求；收入需覆盖多重支出；人均面积增量含保障房等不可流通物业——转化效率均<1"}
+      {
+        "tier": "全局统一系数",
+        "pop_coef": 0.35,
+        "income_coef": 0.3,
+        "supply_coef": -0.15,
+        "note": "转化效率全局一致，城市等级差异由人口/收入数据本身承载，不单独引入梯队特征"
+      },
+      {
+        "tier": "系数含义",
+        "pop_coef": 0.35,
+        "income_coef": 0.3,
+        "supply_coef": -0.15,
+        "note": "人口增长不100%转化为购房需求；收入需覆盖多重支出；人均面积增量含保障房等不可流通物业——转化效率均<1"
+      }
     ],
     "deviation_before": [
-      {"city": "北京", "dev_before": -119.6, "dev_after": 32.9},
-      {"city": "深圳", "dev_before": 12.1, "dev_after": 138.6},
-      {"city": "广州", "dev_before": -76.6, "dev_after": 26.6},
-      {"city": "杭州", "dev_before": -182.5, "dev_after": -36.2},
-      {"city": "成都", "dev_before": -107.4, "dev_after": 27.5},
-      {"city": "青岛", "dev_before": -79.2, "dev_after": 39.6},
-      {"city": "沈阳", "dev_before": -15.4, "dev_after": 59.2},
-      {"city": "哈尔滨", "dev_before": -149.5, "dev_after": -50.0}
+      {
+        "city": "北京",
+        "dev_before": -119.6,
+        "dev_after": 32.9
+      },
+      {
+        "city": "深圳",
+        "dev_before": 12.1,
+        "dev_after": 138.6
+      },
+      {
+        "city": "广州",
+        "dev_before": -76.6,
+        "dev_after": 26.6
+      },
+      {
+        "city": "杭州",
+        "dev_before": -182.5,
+        "dev_after": -36.2
+      },
+      {
+        "city": "成都",
+        "dev_before": -107.4,
+        "dev_after": 27.5
+      },
+      {
+        "city": "青岛",
+        "dev_before": -79.2,
+        "dev_after": 39.6
+      },
+      {
+        "city": "沈阳",
+        "dev_before": -15.4,
+        "dev_after": 59.2
+      },
+      {
+        "city": "哈尔滨",
+        "dev_before": -149.5,
+        "dev_after": -50.0
+      }
     ],
     "tier_diagnosis": [
-      {"tier": "一线核心", "n": 3, "mean_dev": 66.0, "note": "系统性低估：深圳 +139pp 主导（2010 基数低 + 2015-2021 资金潮未建模）"},
-      {"tier": "新一线", "n": 2, "mean_dev": -4.4, "note": "偏差基本平衡：杭州被高估（2010 基数高）与成都被低估互抵"},
-      {"tier": "北方二线", "n": 1, "mean_dev": 39.6, "note": "青岛被低估（2010 基数低）"},
-      {"tier": "东北二线", "n": 2, "mean_dev": 4.6, "note": "沈阳被低估与哈尔滨被高估（收入转化有限）互抵"},
-      {"tier": "三四线", "n": 6, "mean_dev": 18.9, "note": "整体低估：汕头 +86pp 主导（侨乡资金）；九江被高估（收入增幅 225% 未充分转化），含供给缺省高估成分"}
+      {
+        "tier": "一线核心",
+        "n": 3,
+        "mean_dev": 66.0,
+        "note": "系统性低估：深圳 +139pp 主导（2010 基数低 + 2015-2021 资金潮未建模）"
+      },
+      {
+        "tier": "新一线",
+        "n": 2,
+        "mean_dev": -4.4,
+        "note": "偏差基本平衡：杭州被高估（2010 基数高）与成都被低估互抵"
+      },
+      {
+        "tier": "北方二线",
+        "n": 1,
+        "mean_dev": 39.6,
+        "note": "青岛被低估（2010 基数低）"
+      },
+      {
+        "tier": "东北二线",
+        "n": 2,
+        "mean_dev": 4.6,
+        "note": "沈阳被低估与哈尔滨被高估（收入转化有限）互抵"
+      },
+      {
+        "tier": "三四线",
+        "n": 6,
+        "mean_dev": 18.9,
+        "note": "整体低估：汕头 +86pp 主导（侨乡资金）；九江被高估（收入增幅 225% 未充分转化），含供给缺省高估成分"
+      }
     ],
     "prediction": [
-      {"city": "北京", "price_2010": 19186, "theo_growth_pct": 70.4, "pred_2026": 32684, "act_2026": 39000, "supply_missing": false},
-      {"city": "深圳", "price_2010": 18774, "theo_growth_pct": 68.8, "pred_2026": 31694, "act_2026": 57706, "supply_missing": false},
-      {"city": "广州", "price_2010": 12944, "theo_growth_pct": 62.0, "pred_2026": 20965, "act_2026": 24412, "supply_missing": false},
-      {"city": "杭州", "price_2010": 20058, "theo_growth_pct": 69.9, "pred_2026": 34080, "act_2026": 26817, "supply_missing": false},
-      {"city": "成都", "price_2010": 7500, "theo_growth_pct": 71.2, "pred_2026": 12840, "act_2026": 14900, "supply_missing": false},
-      {"city": "青岛", "price_2010": 8500, "theo_growth_pct": 58.3, "pred_2026": 13458, "act_2026": 16822, "supply_missing": false},
-      {"city": "沈阳", "price_2010": 3800, "theo_growth_pct": 39.2, "pred_2026": 5290, "act_2026": 7540, "supply_missing": false},
-      {"city": "哈尔滨", "price_2010": 7550, "theo_growth_pct": 45.4, "pred_2026": 10979, "act_2026": 7200, "supply_missing": false},
-      {"city": "洛阳", "price_2010": 4207, "theo_growth_pct": 57.7, "pred_2026": 6633, "act_2026": 7096, "supply_missing": true},
-      {"city": "汕头", "price_2010": 4330, "theo_growth_pct": 51.4, "pred_2026": 6555, "act_2026": 10287, "supply_missing": true},
-      {"city": "湛江", "price_2010": 4772, "theo_growth_pct": 49.0, "pred_2026": 7109, "act_2026": 8375, "supply_missing": true},
-      {"city": "徐州", "price_2010": 4632, "theo_growth_pct": 59.2, "pred_2026": 7376, "act_2026": 7718, "supply_missing": true},
-      {"city": "九江", "price_2010": 4771, "theo_growth_pct": 65.8, "pred_2026": 7910, "act_2026": 6942, "supply_missing": true},
-      {"city": "济宁", "price_2010": 3950, "theo_growth_pct": 58.2, "pred_2026": 6248, "act_2026": 6349, "supply_missing": true}
+      {
+        "city": "杭州",
+        "price_2010": 20058,
+        "theo_growth_pct": 69.9,
+        "pred_2026": 34080,
+        "act_2026": 26817,
+        "supply_missing": false
+      },
+      {
+        "city": "北京",
+        "price_2010": 19186,
+        "theo_growth_pct": 70.4,
+        "pred_2026": 32684,
+        "act_2026": 39000,
+        "supply_missing": false
+      },
+      {
+        "city": "深圳",
+        "price_2010": 18774,
+        "theo_growth_pct": 68.8,
+        "pred_2026": 31694,
+        "act_2026": 57706,
+        "supply_missing": false
+      },
+      {
+        "city": "上海",
+        "price_2010": 19168,
+        "theo_growth_pct": 64.1,
+        "pred_2026": 31447,
+        "act_2026": 57428,
+        "supply_missing": true
+      },
+      {
+        "city": "广州",
+        "price_2010": 12944,
+        "theo_growth_pct": 62.0,
+        "pred_2026": 20965,
+        "act_2026": 24412,
+        "supply_missing": false
+      },
+      {
+        "city": "南京",
+        "price_2010": 12016,
+        "theo_growth_pct": 68.6,
+        "pred_2026": 20260,
+        "act_2026": 21925,
+        "supply_missing": true
+      },
+      {
+        "city": "青岛",
+        "price_2010": 8500,
+        "theo_growth_pct": 58.3,
+        "pred_2026": 13458,
+        "act_2026": 16822,
+        "supply_missing": false
+      },
+      {
+        "city": "天津",
+        "price_2010": 8958,
+        "theo_growth_pct": 46.1,
+        "pred_2026": 13085,
+        "act_2026": 18021,
+        "supply_missing": true
+      },
+      {
+        "city": "成都",
+        "price_2010": 7500,
+        "theo_growth_pct": 71.2,
+        "pred_2026": 12840,
+        "act_2026": 14900,
+        "supply_missing": false
+      },
+      {
+        "city": "武汉",
+        "price_2010": 6196,
+        "theo_growth_pct": 81.6,
+        "pred_2026": 11249,
+        "act_2026": 12022,
+        "supply_missing": true
+      },
+      {
+        "city": "哈尔滨",
+        "price_2010": 7550,
+        "theo_growth_pct": 45.4,
+        "pred_2026": 10979,
+        "act_2026": 7200,
+        "supply_missing": false
+      },
+      {
+        "city": "长沙",
+        "price_2010": 5339,
+        "theo_growth_pct": 83.1,
+        "pred_2026": 9776,
+        "act_2026": 8000,
+        "supply_missing": true
+      },
+      {
+        "city": "重庆",
+        "price_2010": 5720,
+        "theo_growth_pct": 62.4,
+        "pred_2026": 9290,
+        "act_2026": 9098,
+        "supply_missing": true
+      },
+      {
+        "city": "九江",
+        "price_2010": 4771,
+        "theo_growth_pct": 65.8,
+        "pred_2026": 7910,
+        "act_2026": 6942,
+        "supply_missing": true
+      },
+      {
+        "city": "徐州",
+        "price_2010": 4632,
+        "theo_growth_pct": 59.2,
+        "pred_2026": 7376,
+        "act_2026": 7718,
+        "supply_missing": true
+      },
+      {
+        "city": "湛江",
+        "price_2010": 4772,
+        "theo_growth_pct": 49.0,
+        "pred_2026": 7109,
+        "act_2026": 8375,
+        "supply_missing": true
+      },
+      {
+        "city": "洛阳",
+        "price_2010": 4207,
+        "theo_growth_pct": 57.7,
+        "pred_2026": 6633,
+        "act_2026": 7096,
+        "supply_missing": true
+      },
+      {
+        "city": "汕头",
+        "price_2010": 4330,
+        "theo_growth_pct": 51.4,
+        "pred_2026": 6555,
+        "act_2026": 10287,
+        "supply_missing": true
+      },
+      {
+        "city": "济宁",
+        "price_2010": 3950,
+        "theo_growth_pct": 58.2,
+        "pred_2026": 6248,
+        "act_2026": 6349,
+        "supply_missing": true
+      },
+      {
+        "city": "沈阳",
+        "price_2010": 3800,
+        "theo_growth_pct": 39.2,
+        "pred_2026": 5290,
+        "act_2026": 7540,
+        "supply_missing": false
+      }
     ]
   },
   "conclusions": {
@@ -127,9 +700,10 @@
     "items": [
       "广州7区均价2026年约3.2-3.6万元/平方米（成交口径3.0-3.1万），核心四区基本回到2019年线，外围三区已低于2019年。",
       "广州全市房价收入比从2021年峰值15.8倍回落至2026年约9.5倍，接近6-9倍合理区间上限。",
-      "15城验证显示：人口流入+收入增长+供给约束的方向性规律普适成立；模型采用全局统一系数（0.35/0.30/-0.15），原始系数（均为1）系统性高估房价。统一系数下8城平均绝对偏差约51pp，按梯队分组仍呈系统性格局（一线核心被低估+66pp、三四线+19pp、新一线基本平衡），说明存在基数效应与转化效率差异等未建模因素——这是模型局限，而非可隐藏的梯队参数。",
+      "21城验证显示：人口流入+收入增长+供给约束的方向性规律普适成立；模型采用全局统一系数（0.35/0.30/-0.15），原始系数（均为1）系统性高估房价。统一系数下8城平均绝对偏差约51pp；新增上海/重庆/武汉/南京/天津/长沙（供给缺省按0外推）进一步显示：上海被低估约+136pp（同深圳，2010基数低+资金潮）、天津+55pp、长沙被高估-33pp（人口+52%但房价仅+50%，收入高增长未转化为房价）、重庆基本吻合——偏差反映2010基期与资金潮等未建模因素，不按城市等级改系数。",
       "珠江新城2022年峰值至2026年累计跌幅约47%，接近东京核心区泡沫破裂初期跌幅，但属于局部估值修复+主动调控，与日本全国性硬着陆性质不同。",
-      "人口净流失城市（哈尔滨）即使收入增长，房价涨幅也大幅跑输基本面，是长期低迷风险最集中的类型。"
+      "人口净流失城市（哈尔滨）即使收入增长，房价涨幅也大幅跑输基本面，是长期低迷风险最集中的类型。",
+      "新增一线/新一线城市揭示梯队内分化：上海16年房价+199.6%与深圳并列最高（一线核心资金潮特征）；重庆+59.1%房价与全国最低一线收入比形成对照（供给量大+人口增幅弱）；长沙人口+52.2%但房价仅+49.8%，是收入高增长未转化为房价的典型（房价收入比全国主要城市最低区间）。"
     ]
   }
 }
