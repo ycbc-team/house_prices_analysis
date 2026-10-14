@@ -104,6 +104,22 @@
       {"tier": "北方二线", "n": 1, "mean_dev": 39.6, "note": "青岛被低估（2010 基数低）"},
       {"tier": "东北二线", "n": 2, "mean_dev": 4.6, "note": "沈阳被低估与哈尔滨被高估（收入转化有限）互抵"},
       {"tier": "三四线", "n": 6, "mean_dev": 18.9, "note": "整体低估：汕头 +86pp 主导（侨乡资金）；九江被高估（收入增幅 225% 未充分转化），含供给缺省高估成分"}
+    ],
+    "prediction": [
+      {"city": "北京", "price_2010": 19186, "theo_growth_pct": 70.4, "pred_2026": 32684, "act_2026": 39000, "supply_missing": false},
+      {"city": "深圳", "price_2010": 18774, "theo_growth_pct": 68.8, "pred_2026": 31694, "act_2026": 57706, "supply_missing": false},
+      {"city": "广州", "price_2010": 12944, "theo_growth_pct": 62.0, "pred_2026": 20965, "act_2026": 24412, "supply_missing": false},
+      {"city": "杭州", "price_2010": 20058, "theo_growth_pct": 69.9, "pred_2026": 34080, "act_2026": 26817, "supply_missing": false},
+      {"city": "成都", "price_2010": 7500, "theo_growth_pct": 71.2, "pred_2026": 12840, "act_2026": 14900, "supply_missing": false},
+      {"city": "青岛", "price_2010": 8500, "theo_growth_pct": 58.3, "pred_2026": 13458, "act_2026": 16822, "supply_missing": false},
+      {"city": "沈阳", "price_2010": 3800, "theo_growth_pct": 39.2, "pred_2026": 5290, "act_2026": 7540, "supply_missing": false},
+      {"city": "哈尔滨", "price_2010": 7550, "theo_growth_pct": 45.4, "pred_2026": 10979, "act_2026": 7200, "supply_missing": false},
+      {"city": "洛阳", "price_2010": 4207, "theo_growth_pct": 57.7, "pred_2026": 6633, "act_2026": 7096, "supply_missing": true},
+      {"city": "汕头", "price_2010": 4330, "theo_growth_pct": 51.4, "pred_2026": 6555, "act_2026": 10287, "supply_missing": true},
+      {"city": "湛江", "price_2010": 4772, "theo_growth_pct": 49.0, "pred_2026": 7109, "act_2026": 8375, "supply_missing": true},
+      {"city": "徐州", "price_2010": 4632, "theo_growth_pct": 59.2, "pred_2026": 7376, "act_2026": 7718, "supply_missing": true},
+      {"city": "九江", "price_2010": 4771, "theo_growth_pct": 65.8, "pred_2026": 7910, "act_2026": 6942, "supply_missing": true},
+      {"city": "济宁", "price_2010": 3950, "theo_growth_pct": 58.2, "pred_2026": 6248, "act_2026": 6349, "supply_missing": true}
     ]
   },
   "conclusions": {

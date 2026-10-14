@@ -227,6 +227,19 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
     <p class="chart-note">统一系数下深圳 +139pp、沈阳 +59pp 仍被大幅低估，杭州 -36pp、哈尔滨 -50pp 被高估：偏差反映 2010 基数与资金潮等未建模因素，不按城市等级改系数。曾试过按梯队调系数（平均偏差约 46pp），但那只比统一系数好 5pp，且等价于引入「城市等级」隐藏特征，方法论不成立，故弃用。</p>
   </div>
   <div class="panel">
+    <h3>预测 2026 房价 vs 实际房价</h3>
+    <p class="ph">用全局统一系数由 2010 房价外推理论房价：理论涨幅 = 0.35×人口增幅 + 0.30×收入增幅 − 0.15×供给增幅，再乘 2010 基准价。三四线供给缺省按 0 外推（预测偏高）。厦门缺 2026 权威口径未纳入。</p>
+    <div id="chart-pred" class="chart-box"></div>
+    <div class="tbl-scroll">
+      <table>
+        <colgroup><col style="width:10%"><col style="width:14%"><col style="width:13%"><col style="width:16%"><col style="width:16%"><col style="width:16%"><col style="width:15%"></colgroup>
+        <thead><tr><th>城市</th><th>2010 均价</th><th>理论涨幅</th><th>预测 2026</th><th>实际 2026</th><th>偏差额</th><th>偏差率</th></tr></thead>
+        <tbody id="tbl-pred"></tbody>
+      </table>
+    </div>
+    <p class="chart-note">* 三四线供给缺省按 0 外推，预测值偏高（未扣除供给增长压制），实际偏差率应更大。偏差率 = (实际−预测)/预测。深圳 +82%、汕头 +57%、沈阳 +43% 被大幅低估（低基数+资金潮）；杭州 −21%、哈尔滨 −34% 被高估——与偏差图结论一致，但以绝对房价形式呈现更直观。</p>
+  </div>
+  <div class="panel">
     <h3>15 城数据明细</h3>
     <div class="tbl-scroll">
       <table>
@@ -392,6 +405,15 @@ const DATA = {
   coef: [
     {t:"全局统一系数（全部城市一致）",pc:0.35,ic:0.30,sc:-0.15,l:"转化效率全局一致；城市等级差异由人口/收入数据本身承载，不单独引入梯队特征"}
   ],
+  pred: [
+    {c:"北京",p10:19186,theo:70.4,pred:32684,act:39000,s:0},{c:"深圳",p10:18774,theo:68.8,pred:31694,act:57706,s:0},
+    {c:"广州",p10:12944,theo:62.0,pred:20965,act:24412,s:0},{c:"杭州",p10:20058,theo:69.9,pred:34080,act:26817,s:0},
+    {c:"成都",p10:7500,theo:71.2,pred:12840,act:14900,s:0},{c:"青岛",p10:8500,theo:58.3,pred:13458,act:16822,s:0},
+    {c:"沈阳",p10:3800,theo:39.2,pred:5290,act:7540,s:0},{c:"哈尔滨",p10:7550,theo:45.4,pred:10979,act:7200,s:0},
+    {c:"洛阳",p10:4207,theo:57.7,pred:6633,act:7096,s:1},{c:"汕头",p10:4330,theo:51.4,pred:6555,act:10287,s:1},
+    {c:"湛江",p10:4772,theo:49.0,pred:7109,act:8375,s:1},{c:"徐州",p10:4632,theo:59.2,pred:7376,act:7718,s:1},
+    {c:"九江",p10:4771,theo:65.8,pred:7910,act:6942,s:1},{c:"济宁",p10:3950,theo:58.2,pred:6248,act:6349,s:1}
+  ],
   tierDiag: [
     {t:"一线核心",n:3,d:66.0,l:"系统性低估：深圳 +139pp 主导（2010 基数低 + 资金潮未建模）"},
     {t:"新一线",n:2,d:-4.4,l:"偏差基本平衡：杭州被高估（2010 基数高）与成都被低估互抵"},
@@ -433,6 +455,12 @@ function pct(n){return (n>0?'+':'')+n.toFixed(1)+'%'}
 
   const ttd=document.getElementById('tbl-tierdiag');
   ttd.innerHTML=DATA.tierDiag.map(x=>`<tr><td>${x.t}</td><td>${x.n}</td><td class="${x.d>0?'up':'dn'}">${pct(x.d)}</td><td>${x.l}</td></tr>`).join('');
+
+  const tp=document.getElementById('tbl-pred');
+  tp.innerHTML=DATA.pred.map(x=>{
+    const dv=x.act-x.pred, dr=dv/x.pred*100;
+    return `<tr><td>${x.c}${x.s?'<span style="color:#999;font-size:11px">*</span>':''}</td><td>${fmt(x.p10)}</td><td>+${x.theo.toFixed(1)}%</td><td>${fmt(Math.round(x.pred))}</td><td>${fmt(x.act)}</td><td class="${dv>0?'up':'dn'}">${(dv>0?'+':'')}${fmt(dv)}</td><td class="${dr>0?'up':'dn'}">${(dr>0?'+':'')}${dr.toFixed(1)}%</td></tr>`;
+  }).join('');
 
   const th=document.getElementById('timeline-history');
   th.innerHTML=DATA.history.map(x=>`<div class="tl-row"><div class="tl-year">${x.y}</div><div class="tl-body"><div class="tl-name">${x.stage}</div><div class="tl-note">${x.n}</div><span class="tl-val">房价收入比 ${x.r} 倍</span></div></div>`).join('');
@@ -495,6 +523,26 @@ function tip(extra){return Object.assign({trigger:'axis',backgroundColor:'rgba(2
       {name:'原模型偏差',type:'bar',data:DATA.deviation.map(x=>x.b),barWidth:'26%',itemStyle:{color:SOFT,borderRadius:[4,4,0,0]}},
       {name:'全局统一系数',type:'bar',data:DATA.deviation.map(x=>x.a),barWidth:'26%',itemStyle:{color:BRAND,borderRadius:[4,4,0,0]},
         label:{show:true,position:'top',fontSize:9,color:BRAND,formatter:p=>p.value.toFixed(0)+'%'}}
+    ]
+  });
+})();
+
+/* 图3b：预测房价 vs 实际房价 */
+(function(){
+  const c=base('chart-pred');if(!c)return;
+  c.setOption({
+    grid:{left:8,right:16,top:44,bottom:8,containLabel:true},
+    legend:{top:6,right:6,data:['预测房价','实际房价'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
+    tooltip:tip({axisPointer:{type:'shadow'},formatter:function(p){
+      const x=DATA.pred[p[0].dataIndex], dv=x.act-x.pred, dr=dv/x.pred*100;
+      return x.c+'<br>2010 均价：'+fmt(x.p10)+'<br>预测房价：'+fmt(Math.round(x.pred))+'（理论涨幅 +'+x.theo.toFixed(1)+'%）<br>实际房价：'+fmt(x.act)+'<br>偏差：'+(dv>0?'+':'')+fmt(dv)+'（'+(dr>0?'+':'')+dr.toFixed(1)+'%）';
+    }}),
+    xAxis:Object.assign({},AXIS,{type:'category',data:DATA.pred.map(x=>x.c),axisLabel:{color:INK,fontSize:10,interval:0,rotate:30}}),
+    yAxis:Object.assign({},AXIS,{type:'value',name:'元/㎡',nameTextStyle:{color:MUTED,fontSize:11}}),
+    series:[
+      {name:'预测房价',type:'bar',data:DATA.pred.map(x=>Math.round(x.pred)),barWidth:'24%',itemStyle:{color:SOFT,borderRadius:[4,4,0,0]}},
+      {name:'实际房价',type:'bar',data:DATA.pred.map(x=>x.act),barWidth:'24%',itemStyle:{color:BRAND,borderRadius:[4,4,0,0]},
+        label:{show:true,position:'top',fontSize:9,color:BRAND,formatter:p=>p.value>=10000?(p.value/10000).toFixed(1)+'万':p.value}}
     ]
   });
 })();
