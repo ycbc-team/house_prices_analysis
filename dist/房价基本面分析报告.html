@@ -221,10 +221,10 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
     <p class="chart-note">人口流入与房价涨幅大体同向：深圳（+76% 人口 → +207% 涨幅）、北京领跑；哈尔滨人口净流出、房价不涨反跌（-5%）。三四线城市房价涨幅（45%-138%）整体低于一二线，但分化明显：汕头 +138% 是特例（侨乡资金/特区概念溢价），九江人口流失仍涨 45%（纯收入驱动）。</p>
   </div>
   <div class="panel">
-    <h3>模型校准前后：从系统性高估到偏差收窄</h3>
-    <p class="ph">原始模型系数（人口/收入/供给=1）系统性高估；按城市梯队校准转化系数后，平均绝对偏差从约 93% 收窄至约 46%。厦门因缺 2026 权威成交口径未纳入。</p>
+    <h3>模型偏差：全局统一系数 vs 原始系数=1</h3>
+    <p class="ph">原始模型（系数均为 1）系统性高估房价；改用全局统一系数（0.35/0.30/-0.15）后平均绝对偏差从约 93pp 收窄至约 51pp。厦门因缺 2026 权威成交口径未纳入。</p>
     <div id="chart-deviation" class="chart-box"></div>
-    <p class="chart-note">数据改用成交/网签口径后，深圳、青岛、沈阳按梯队系数拟合偏差仍明显（+50~+70pp）：深圳 2010 年成交基数（1.88 万/㎡）低而涨幅高达 207%，远超收入/人口贡献；说明三变量模型对涨幅量级的解释力有限，仅方向性规律稳健。</p>
+    <p class="chart-note">统一系数下深圳 +139pp、沈阳 +59pp 仍被大幅低估，杭州 -36pp、哈尔滨 -50pp 被高估：偏差反映 2010 基数与资金潮等未建模因素，不按城市等级改系数。曾试过按梯队调系数（平均偏差约 46pp），但那只比统一系数好 5pp，且等价于引入「城市等级」隐藏特征，方法论不成立，故弃用。</p>
   </div>
   <div class="panel">
     <h3>15 城数据明细</h3>
@@ -255,8 +255,8 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
 
 <!-- ===== 章节四：模型框架 ===== -->
 <section id="model">
-  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">定价模型：三变量与系数校准</h2></div>
-  <p class="sec-desc">保持「常住人口、人均收入、住房供给」三个特征不变，仅按城市梯队校准转化系数，可显著收窄原始模型的系统性高估；但量级拟合能力有限，系数为示意校准而非严谨回归。</p>
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">定价模型：三变量与统一系数</h2></div>
+  <p class="sec-desc">模型只保留「常住人口、人均收入、住房供给」三个特征，转化系数全局一致（0.35 / 0.30 / -0.15），不按城市等级区分参数——「几线城市」应体现在人口与收入数据本身。统一系数下 8 城平均绝对偏差约 51pp（原始系数=1 时约 93pp），按梯队分组的残余偏差呈系统性格局，反映基数效应与转化效率差异等未建模因素。</p>
   <div class="panel">
     <h3>模型公式</h3>
     <div class="formula">
@@ -264,18 +264,26 @@ footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-
       <code>房价长期涨幅 ≈ 常住人口增幅 × 人口系数 + 人均收入增幅 × 收入系数 − 人均住房供给增幅 × 供给系数</code>
     </div>
     <div class="formula">
-      <div class="f-tag">全局均值系数</div>
-      <code>理论房价涨幅 = 0.35 × 人口增幅 + 0.30 × 收入增幅 − 0.15 × 供给增幅</code>
+      <div class="f-tag">全局统一系数</div>
+      <code>理论房价涨幅 = 0.35 × 人口增幅 + 0.30 × 收入增幅 − 0.15 × 供给增幅（全部城市一致）</code>
     </div>
     <div class="tbl-scroll">
       <table>
-        <colgroup><col style="width:30%"><col style="width:16%"><col style="width:16%"><col style="width:16%"><col style="width:22%"></colgroup>
-        <thead><tr><th>城市梯队</th><th>人口系数</th><th>收入系数</th><th>供给系数</th><th>转化逻辑</th></tr></thead>
+        <colgroup><col style="width:26%"><col style="width:14%"><col style="width:14%"><col style="width:14%"><col style="width:32%"></colgroup>
+        <thead><tr><th>参数</th><th>人口系数</th><th>收入系数</th><th>供给系数</th><th>说明</th></tr></thead>
         <tbody id="tbl-coef"></tbody>
       </table>
     </div>
+    <div class="tbl-scroll" style="margin-top:12px">
+      <table>
+        <colgroup><col style="width:14%"><col style="width:8%"><col style="width:14%"><col style="width:64%"></colgroup>
+        <thead><tr><th>城市梯队</th><th>样本</th><th>平均偏差</th><th>诊断：等级效应是否被人口/收入承载</th></tr></thead>
+        <tbody id="tbl-tierdiag"></tbody>
+      </table>
+    </div>
     <div class="callout warn">
-      <b>系数含义：</b>常住人口增长不会 100% 转化为购房需求（老人、儿童、低收入务工者非购房主体）；收入需覆盖生活多重支出；人均面积增量含保障房等不可流通物业。三个系数均远小于 1，原始「系数=1」的假设是系统性高估的根源。
+      <b>系数含义：</b>常住人口增长不会 100% 转化为购房需求（老人、儿童、低收入务工者非购房主体）；收入需覆盖生活多重支出；人均面积增量含保障房等不可流通物业。转化效率均远小于 1、且全局一致——原始「系数=1」的假设是系统性高估的根源。<br>
+      <b>残余偏差说明：</b>统一系数下按梯队分组偏差并不随机（一线 +66pp、三四线 +19pp、新一线 -4pp），说明存在未被三变量承载的「等级效应」（2010 基数、资金偏好、信贷可得性）——这是模型真实局限，显式呈现而非伪装成梯队系数。
     </div>
   </div>
 </section>
@@ -372,9 +380,9 @@ const DATA = {
     {stage:"回归期",y:2026,r:9.5,n:"房价下跌+收入增长双重消化，接近合理区间"}
   ],
   deviation: [
-    {c:"北京",b:-119.6,a:-37.4},{c:"深圳",b:12.1,a:69.8},{c:"广州",b:-76.6,a:-35.3},
-    {c:"杭州",b:-182.5,a:-36.2},{c:"成都",b:-107.4,a:27.5},{c:"青岛",b:-79.2,a:50.3},
-    {c:"沈阳",b:-15.4,a:66.3},{c:"哈尔滨",b:-149.5,a:-43.5}
+    {c:"北京",b:-119.6,a:32.9},{c:"深圳",b:12.1,a:138.6},{c:"广州",b:-76.6,a:26.6},
+    {c:"杭州",b:-182.5,a:-36.2},{c:"成都",b:-107.4,a:27.5},{c:"青岛",b:-79.2,a:39.6},
+    {c:"沈阳",b:-15.4,a:59.2},{c:"哈尔滨",b:-149.5,a:-50.0}
   ],
   income: [
     {m:"城镇居民人均\n可支配收入",gz:86069,sz:84945,h:"广州"},
@@ -382,14 +390,19 @@ const DATA = {
     {m:"城镇在岗职工\n平均工资",gz:123000,sz:152000,h:"深圳"}
   ],
   coef: [
-    {t:"沿海核心（深圳/广州/厦门）",pc:0.7,ic:0.6,sc:-0.3,l:"高学历青壮年流入、供给稀缺，转化效率最高"},
-    {t:"内陆强二线（成都/杭州/武汉/南京）",pc:0.35,ic:0.30,sc:-0.15,l:"人口以省内县域转移为主，转化效率中等"},
-    {t:"普通二线/人口收缩（青岛/沈阳/哈尔滨/菏泽）",pc:0.20,ic:0.25,sc:-0.10,l:"人口增长乏力、供给过剩，转化效率最低"}
+    {t:"全局统一系数（全部城市一致）",pc:0.35,ic:0.30,sc:-0.15,l:"转化效率全局一致；城市等级差异由人口/收入数据本身承载，不单独引入梯队特征"}
+  ],
+  tierDiag: [
+    {t:"一线核心",n:3,d:66.0,l:"系统性低估：深圳 +139pp 主导（2010 基数低 + 资金潮未建模）"},
+    {t:"新一线",n:2,d:-4.4,l:"偏差基本平衡：杭州被高估（2010 基数高）与成都被低估互抵"},
+    {t:"北方二线",n:1,d:39.6,l:"青岛被低估（2010 基数低）"},
+    {t:"东北二线",n:2,d:4.6,l:"沈阳被低估与哈尔滨被高估（收入转化有限）互抵"},
+    {t:"三四线",n:6,d:18.9,l:"整体低估：汕头 +86pp 主导（侨乡资金）；九江被高估（收入增幅 225% 未充分转化），含供给缺省成分"}
   ],
   conclusions: [
     {t:"广州 7 区均价回到 2019 年线",n:"核心四区 7 年基本零涨幅，外围三区已低于 2019 年；全市估值溢价约 6%，接近合理区间"},
     {t:"房价收入比回落至 9.5 倍",n:"从 2021 年峰值 15.8 倍持续回归，接近 6-9 倍合理区间上限，大幅普跌空间有限"},
-    {t:"三变量规律方向普适成立",n:"人口流入+收入增长+供给约束的方向性规律在 14 城（厦门缺 2026 权威口径）无方向性反例，但涨幅量级拟合有限，示意系数不构成严谨回归"},
+    {t:"三变量规律方向普适成立",n:"人口流入+收入增长+供给约束的方向性规律在 14 城（厦门缺 2026 权威口径）无方向性反例；模型采用全局统一系数（0.35/0.30/-0.15），不按城市等级区分参数"},
     {t:"三四线涨幅普遍跑输收入",n:"6 个三四线城市房价涨幅 45%-138%，收入增幅却达 161%-225%，房价收入比显著收窄——基数低、泡沫小，多数城市已回归「收入锚」；汕头 +138% 为唯一接近一线涨幅的特例"},
     {t:"珠江新城跌幅接近东京初期",n:"2022→2026 累计约 -47%，量级接近东京核心区泡沫破裂头 4 年，但属局部估值修复+主动调控，性质不同"},
     {t:"人口流失城市风险最集中",n:"哈尔滨收入增长但房价不涨反跌（2010→2026 约 -5%），远低于理论值，是长期低迷风险最高的城市类型"}
@@ -417,6 +430,9 @@ function pct(n){return (n>0?'+':'')+n.toFixed(1)+'%'}
 
   const tco=document.getElementById('tbl-coef');
   tco.innerHTML=DATA.coef.map(x=>`<tr><td>${x.t}</td><td>${x.pc}</td><td>${x.ic}</td><td>${x.sc}</td><td>${x.l}</td></tr>`).join('');
+
+  const ttd=document.getElementById('tbl-tierdiag');
+  ttd.innerHTML=DATA.tierDiag.map(x=>`<tr><td>${x.t}</td><td>${x.n}</td><td class="${x.d>0?'up':'dn'}">${pct(x.d)}</td><td>${x.l}</td></tr>`).join('');
 
   const th=document.getElementById('timeline-history');
   th.innerHTML=DATA.history.map(x=>`<div class="tl-row"><div class="tl-year">${x.y}</div><div class="tl-body"><div class="tl-name">${x.stage}</div><div class="tl-note">${x.n}</div><span class="tl-val">房价收入比 ${x.r} 倍</span></div></div>`).join('');
@@ -471,13 +487,13 @@ function tip(extra){return Object.assign({trigger:'axis',backgroundColor:'rgba(2
   const c=base('chart-deviation');if(!c)return;
   c.setOption({
     grid:{left:8,right:16,top:44,bottom:8,containLabel:true},
-    legend:{top:6,right:6,data:['原模型偏差','梯队系数修正后'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
+    legend:{top:6,right:6,data:['原模型偏差','全局统一系数'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
     tooltip:tip({axisPointer:{type:'shadow'},formatter:function(p){return p[0].name+'<br>'+p[0].seriesName+'：'+p[0].value.toFixed(1)+'%'}}),
     xAxis:Object.assign({},AXIS,{type:'category',data:DATA.deviation.map(x=>x.c),axisLabel:{color:INK,fontSize:11,interval:0}}),
     yAxis:Object.assign({},AXIS,{type:'value',name:'偏差（实际-理论，%）',nameTextStyle:{color:MUTED,fontSize:11}}),
     series:[
       {name:'原模型偏差',type:'bar',data:DATA.deviation.map(x=>x.b),barWidth:'26%',itemStyle:{color:SOFT,borderRadius:[4,4,0,0]}},
-      {name:'梯队系数修正后',type:'bar',data:DATA.deviation.map(x=>x.a),barWidth:'26%',itemStyle:{color:BRAND,borderRadius:[4,4,0,0]},
+      {name:'全局统一系数',type:'bar',data:DATA.deviation.map(x=>x.a),barWidth:'26%',itemStyle:{color:BRAND,borderRadius:[4,4,0,0]},
         label:{show:true,position:'top',fontSize:9,color:BRAND,formatter:p=>p.value.toFixed(0)+'%'}}
     ]
   });
