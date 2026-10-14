@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中国主要城市房价基本面分析报告</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F2A3A'/%3E%3Cpath d='M8 20 L16 8 L24 20' stroke='%23E8A15C' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M11 26 h10' stroke='%23E8A15C' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F6F4EF;
+  --paper:#FFFFFF;
+  --ink:#1F2A3A;
+  --ink-soft:#44506A;
+  --muted:#7A8296;
+  --line:#E3DFD4;
+  --line-soft:#EDE9E0;
+  --brand:#A8462F;
+  --brand-deep:#8A3624;
+  --gold:#A8763E;
+  --gold-soft:#E8D9C2;
+  --green:#4A7A5A;
+  --hero-bg:#1F2A3A;
+  --hero-ink:#F2EFE7;
+  --serif:"Noto Serif SC",Georgia,"Songti SC","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --num:"Noto Sans SC","PingFang SC",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* ===== Hero ===== */
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding:64px 0 56px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -10% -40% auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(168,70,47,.22),rgba(31,42,58,0) 65%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero .kicker{display:inline-block;font-size:12px;letter-spacing:.22em;color:#C9BFAE;border:1px solid rgba(201,191,174,.35);padding:5px 14px;border-radius:999px;margin-bottom:22px}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,4.6vw,44px);font-weight:900;line-height:1.3;letter-spacing:.01em}
+.hero .sub{margin-top:14px;font-size:15px;color:#C4C9D6;max-width:62ch;font-weight:300}
+.hero .meta-row{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13px;color:#9AA3B5}
+.hero .meta-row b{color:#E8A15C;font-weight:500;font-variant-numeric:tabular-nums}
+.hero-grid{margin-top:38px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.hero-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px}
+.hero-card .lab{font-size:12px;color:#A9B0C0;margin-bottom:6px}
+.hero-card .val{font-size:clamp(20px,2.6vw,26px);font-weight:700;font-family:var(--serif);color:#F2EFE7;font-variant-numeric:tabular-nums}
+.hero-card .val em{font-style:normal;color:#E8A15C}
+.hero-card .note{font-size:12px;color:#8E97A9;margin-top:4px}
+@media(min-width:768px){.hero-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ===== Section ===== */
+section{padding:56px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.sec-num{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--brand);white-space:nowrap}
+.sec-title{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--ink);line-height:1.35}
+.sec-desc{margin:10px 0 26px;color:var(--ink-soft);font-size:14px;max-width:70ch}
+.sec-lead{color:var(--muted);font-size:13px;margin:-16px 0 26px;max-width:70ch}
+
+/* ===== Panel ===== */
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 20px;margin-bottom:22px}
+.panel h3{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:4px}
+.panel .ph{font-size:13px;color:var(--muted);margin-bottom:14px}
+.chart-box{width:100%;height:360px}
+.chart-box.tall{height:420px}
+.chart-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6}
+
+/* ===== Table ===== */
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed;margin-top:6px}
+th,td{padding:10px 10px;text-align:right;vertical-align:middle}
+th{font-weight:500;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line)}
+td{border-bottom:1px solid var(--line-soft);font-variant-numeric:tabular-nums;color:var(--ink)}
+td:first-child,th:first-child{text-align:left}
+tr:last-child td{border-bottom:none}
+td .up{color:var(--brand);font-weight:500}
+td .dn{color:var(--green);font-weight:500}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--gold-soft);color:#6D4A16;white-space:nowrap}
+
+/* ===== Data files ===== */
+.file-list{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px}
+.file-item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#FBF9F5}
+.file-item .f-ic{width:34px;height:34px;flex:0 0 34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.file-item .f-ic.json{background:#6B7C93}
+.file-item .f-ic.csv{background:var(--green)}
+.file-item .f-name{font-size:14px;font-weight:500;font-family:var(--num)}
+.file-item .f-path{font-size:12px;color:var(--muted);font-family:var(--num)}
+.file-item .f-desc{font-size:12px;color:var(--muted)}
+@media(min-width:768px){.file-list{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== Formula ===== */
+.formula{background:var(--hero-bg);color:var(--hero-ink);border-radius:12px;padding:18px 20px;font-family:var(--num);font-size:14px;overflow-x:auto;margin:14px 0}
+.formula .f-tag{display:inline-block;font-size:11px;letter-spacing:.12em;color:#C9BFAE;border:1px solid rgba(201,191,174,.35);padding:2px 10px;border-radius:999px;margin-bottom:10px}
+.formula code{color:#E8A15C;font-weight:500;white-space:nowrap}
+
+/* ===== Callout ===== */
+.callout{border-left:3px solid var(--brand);background:#FBF3EE;border-radius:0 10px 10px 0;padding:16px 18px;margin:22px 0;font-size:14px;color:var(--ink-soft)}
+.callout b{color:var(--brand-deep)}
+.callout.warn{border-left-color:var(--gold);background:#F9F3E8}
+.callout.warn b{color:#6D4A16}
+
+/* ===== Timeline ===== */
+.timeline{margin-top:16px}
+.tl-row{display:grid;grid-template-columns:86px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.tl-row:last-child{border-bottom:none}
+.tl-year{font-family:var(--serif);font-weight:700;color:var(--brand);font-variant-numeric:tabular-nums;font-size:15px}
+.tl-body .tl-name{font-weight:600;font-size:14px}
+.tl-body .tl-note{font-size:13px;color:var(--muted);margin-top:2px}
+.tl-body .tl-val{display:inline-block;margin-top:6px;font-size:12px;background:var(--gold-soft);color:#6D4A16;border-radius:999px;padding:2px 10px}
+
+/* ===== Footer ===== */
+footer{margin-top:64px;background:var(--hero-bg);color:#B7BECB;padding:40px 0;font-size:12px;line-height:1.9}
+footer .wrap{display:grid;gap:24px}
+footer h4{color:#E8A15C;font-size:13px;margin-bottom:6px}
+footer ul{padding-left:18px}
+footer li{margin-bottom:4px}
+footer .disc{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;margin-top:8px}
+
+/* responsive */
+@media(max-width:600px){
+  body{font-size:14px}
+  section{padding:40px 0 4px}
+  .panel{padding:18px 14px}
+  .chart-box{height:300px}
+  .chart-box.tall{height:340px}
+  .hero{padding:48px 0 44px}
+  .tl-row{grid-template-columns:1fr;gap:6px;padding:12px 0}
+  table{font-size:12px}
+  th,td{padding:8px 6px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">数据报告 · 2026年10月</span>
+    <h1>中国主要城市房价基本面分析</h1>
+    <p class="sub">以「常住人口 × 收入 × 住房供给」为骨架，对广州 7 区、9 个代表性城市、山东三城样本做跨周期估值对比，验证房价长期定价规律并校准模型系数。全部数据已持久化至本地 parsed/ 目录。</p>
+    <div class="meta-row">
+      <span>数据基准日：<b>2026-10-14</b></span>
+      <span>口径：<b>二手住宅成交均价 / 城镇居民人均可支配收入 / 常住人口</b></span>
+      <span>报告形态：<b>自包含 HTML + 本地 JSON/CSV</b></span>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-card">
+        <div class="lab">广州 7 区整体估值溢价</div>
+        <div class="val"><em>约 6%</em></div>
+        <div class="note">自 2021 年峰值约 50% 大幅收窄，接近合理区间</div>
+      </div>
+      <div class="hero-card">
+        <div class="lab">广州房价收入比（2026）</div>
+        <div class="val"><em>9.5 倍</em></div>
+        <div class="note">2021 年峰值 15.8 倍，已回落至合理区间上限</div>
+      </div>
+      <div class="hero-card">
+        <div class="lab">核心四区 vs 2019 年线</div>
+        <div class="val"><em>基本持平</em></div>
+        <div class="note">越秀/天河/海珠/荔湾 7 年累计涨跌幅约 ±3%</div>
+      </div>
+      <div class="hero-card">
+        <div class="lab">珠江新城高点跌幅</div>
+        <div class="val"><em>-47%</em></div>
+        <div class="note">2022 峰值约 15.9 万/㎡ → 2026 约 8.4 万/㎡</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ===== 数据文件 ===== -->
+<section id="data-files">
+  <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">数据源清单（已持久化）</h2></div>
+  <p class="sec-desc">本次分析全部数据已落盘到项目目录 <span style="font-family:var(--num);font-size:13px;color:var(--brand)">/Users/bytedance/Developer/hourse_prices_analysis</span>，以下文件为唯一数据源，本报告页面内嵌数据与其逐项一致。</p>
+  <div class="panel">
+    <div class="file-list">
+      <div class="file-item"><div class="f-ic json">JSON</div><div><div class="f-name">house_prices_data.json</div><div class="f-path">parsed/house_prices_data.json</div><div class="f-desc">全量数据集：7区、9城、山东三城、房价收入比历史、广深收入、模型系数、结论</div></div></div>
+      <div class="file-item"><div class="f-ic csv">CSV</div><div><div class="f-name">gz_districts.csv</div><div class="f-path">parsed/gz_districts.csv</div><div class="f-desc">广州 7 区房价 / 收入 / 人口 / 房价收入比</div></div></div>
+      <div class="file-item"><div class="f-ic csv">CSV</div><div><div class="f-name">cities_comparison.csv</div><div class="f-path">parsed/cities_comparison.csv</div><div class="f-desc">9 城人口 / 收入 / 房价 / 供给跨期增幅</div></div></div>
+      <div class="file-item"><div class="f-ic csv">CSV</div><div><div class="f-name">gz_price_income_history.csv</div><div class="f-path">parsed/gz_price_income_history.csv</div><div class="f-desc">广州房价收入比 1998-2026 历史演变</div></div></div>
+    </div>
+    <p class="chart-note">数据口径：房价为二手住宅成交价（2026 年为挂牌价下浮 7%-8% 估算）；收入为城镇居民人均可支配收入；人口为常住人口；供给为人均住房建筑面积。估算值已逐项标注，详见文末「口径与来源」。</p>
+  </div>
+</section>
+
+<!-- ===== 章节一：广州7区 ===== -->
+<section id="gz-districts">
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">广州 7 区：价格回到什么位置？</h2></div>
+  <p class="sec-desc">用各区自身收入（而非全市平均）计算房价收入比，对比 2019 与 2026 两个时间点，判断当前估值回归程度。</p>
+  <div class="panel">
+    <h3>各区房价收入比：2019 vs 2026</h3>
+    <p class="ph">房价收入比 = 90㎡套均总价 ÷ 家庭年可支配收入（人均 × 户均 2.8 人）</p>
+    <div id="chart-pi" class="chart-box"></div>
+    <p class="chart-note">2026 年全市平均房价收入比约 9.5 倍，接近 6-9 倍合理区间上限；核心四区（越秀/天河）仍高于 13 倍，保留资源稀缺性溢价；外围三区已进入合理区间。</p>
+  </div>
+  <div class="panel">
+    <h3>7 区核心指标明细</h3>
+    <div class="tbl-scroll">
+      <table>
+        <colgroup><col style="width:9%"><col style="width:11%"><col style="width:11%"><col style="width:11%"><col style="width:10%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:10%"><col style="width:10%"></colgroup>
+        <thead><tr><th>区域</th><th>2010 房价<br>(元/㎡)</th><th>2019 房价<br>(元/㎡)</th><th>2026 房价<br>(元/㎡,估)</th><th>房价涨幅<br>10→26</th><th>收入涨幅<br>10→25</th><th>人口增幅<br>10→25</th><th>房价收入比<br>2019</th><th>房价收入比<br>2026</th><th>2026 估值状态</th></tr></thead>
+        <tbody id="tbl-districts"></tbody>
+      </table>
+    </div>
+    <p class="chart-note">核心四区价格 7 年基本零涨幅（吃掉 2020-2022 年上涨泡沫）；白云、番禺已低于 2019 年；黄埔因科学城产业落地显著高于 2019 年。珠江新城当前约 8.4 万/㎡，仍高于 2019 年 7.6 万/㎡ 约 10%。</p>
+  </div>
+</section>
+
+<!-- ===== 章节二：9城验证 ===== -->
+<section id="cities">
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">九城验证：人口 × 收入 × 供给规律是否普适？</h2></div>
+  <p class="sec-desc">选取一线核心、新一线、北方二线、东北人口承压四类共 9 城，对比 2010→2025/2026 的增幅，检验「人口定需求、收入定购买力、供给定稀缺性」的方向性规律。</p>
+  <div class="panel">
+    <h3>人口增幅 × 房价涨幅：规律方向成立</h3>
+    <p class="ph">横轴：常住人口 15 年增幅；纵轴：房价 16 年涨幅；气泡大小：人均住房供给增幅（越大供给越松）</p>
+    <div id="chart-scatter" class="chart-box"></div>
+    <p class="chart-note">人口流入越多、供给约束越强的城市房价涨幅越高：深圳 > 广州 > 厦门 > 成都 > 青岛 > 沈阳 > 哈尔滨，无方向性反例。</p>
+  </div>
+  <div class="panel">
+    <h3>模型校准前后：偏差从系统性高估到收敛</h3>
+    <p class="ph">原始模型系数（人口/收入/供给=1）系统性高估；按城市梯队校准转化系数后，平均绝对偏差从约 109% 收敛至约 15%</p>
+    <div id="chart-deviation" class="chart-box"></div>
+    <p class="chart-note">修正后深圳、广州、厦门、青岛、沈阳按梯队系数拟合偏差已收窄至 10% 以内，剩余偏差主要来自周期位置（当前处于回调底部）。</p>
+  </div>
+  <div class="panel">
+    <h3>9 城数据明细</h3>
+    <div class="tbl-scroll">
+      <table>
+        <colgroup><col style="width:12%"><col style="width:13%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"><col style="width:15%"></colgroup>
+        <thead><tr><th>城市</th><th>类型</th><th>常住人口增幅</th><th>收入增幅</th><th>房价实际涨幅</th><th>供给增幅</th><th>方向判断</th></tr></thead>
+        <tbody id="tbl-cities"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 章节三：房价收入比历史 ===== -->
+<section id="history">
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">广州房价收入比：28 年五轮周期</h2></div>
+  <p class="sec-desc">从 1998 年房改至今，广州房价收入比走完「合理 → 攀升 → 震荡 → 冲顶 → 回归」完整周期，当前处于回归期后半段。</p>
+  <div class="panel">
+    <h3>1998-2026 房价收入比走势</h3>
+    <div id="chart-history" class="chart-box"></div>
+    <p class="chart-note">2021 年 15.8 倍为历史峰值；2022 年后「房价下跌 + 收入增长」双重消化，2026 年回落至 9.5 倍，接近 6-9 倍合理区间上限。</p>
+  </div>
+  <div class="panel">
+    <h3>周期阶段演变</h3>
+    <div class="timeline" id="timeline-history"></div>
+  </div>
+</section>
+
+<!-- ===== 章节四：模型框架 ===== -->
+<section id="model">
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">定价模型：三变量与系数校准</h2></div>
+  <p class="sec-desc">保持「常住人口、人均收入、住房供给」三个特征不变，仅按城市梯队校准转化系数，即可消除系统性高估。</p>
+  <div class="panel">
+    <h3>模型公式</h3>
+    <div class="formula">
+      <div class="f-tag">基础模型</div>
+      <code>房价长期涨幅 ≈ 常住人口增幅 × 人口系数 + 人均收入增幅 × 收入系数 − 人均住房供给增幅 × 供给系数</code>
+    </div>
+    <div class="formula">
+      <div class="f-tag">全局均值系数</div>
+      <code>理论房价涨幅 = 0.35 × 人口增幅 + 0.30 × 收入增幅 − 0.15 × 供给增幅</code>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <colgroup><col style="width:30%"><col style="width:16%"><col style="width:16%"><col style="width:16%"><col style="width:22%"></colgroup>
+        <thead><tr><th>城市梯队</th><th>人口系数</th><th>收入系数</th><th>供给系数</th><th>转化逻辑</th></tr></thead>
+        <tbody id="tbl-coef"></tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>系数含义：</b>常住人口增长不会 100% 转化为购房需求（老人、儿童、低收入务工者非购房主体）；收入需覆盖生活多重支出；人均面积增量含保障房等不可流通物业。三个系数均远小于 1，原始「系数=1」的假设是系统性高估的根源。
+    </div>
+  </div>
+</section>
+
+<!-- ===== 章节五：广深收入口径 ===== -->
+<section id="income">
+  <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">广州 vs 深圳：收入口径差异</h2></div>
+  <p class="sec-desc">澄清「深圳工资更高 vs 广州城镇居民收入更高」的统计口径差异，不同口径对应不同人群，不影响「深圳核心群体购买力更强」的判断。</p>
+  <div class="panel">
+    <h3>三大收入口径对比（2025 年）</h3>
+    <div id="chart-income" class="chart-box"></div>
+    <p class="chart-note">城镇居民人均可支配收入：深圳城镇化率 99.79%，全域纳入统计（含海量外来务工中低收入群体），分母不同导致广州微弱领先（+1.3%）；全体居民口径深圳更高；工资口径深圳领先约 24%。</p>
+  </div>
+</section>
+
+<!-- ===== 章节六：结论 ===== -->
+<section id="conclusion">
+  <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">核心结论</h2></div>
+  <div class="panel">
+    <div class="timeline" id="timeline-conclusions"></div>
+  </div>
+  <div class="callout">
+    <b>风险提示：</b>以上全部内容为基于公开历史数据的规律总结与统计拟合，不构成任何购房建议、投资承诺或涨跌担保。房地产价格受宏观政策、经济周期、区域供需等大量不可预测因素影响，历史规律不代表未来走势，购房决策请独立判断并自行承担风险。
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h4>数据口径与来源</h4>
+      <ul>
+        <li>房价-2010：合富置业历史成交数据（当年主流中介成交均价，官方媒体普遍引用口径）</li>
+        <li>房价-2019：链家实际成交备案数据</li>
+        <li>房价-2026：贝壳 / 58 同城挂牌价下浮 7%-8% 估算成交价（当前市场议价空间 5%-10%）</li>
+        <li>收入：各市 / 各区统计局统计公报，城镇居民人均可支配收入（个别缺失年份按相邻年份增速推算，误差 ±2% 内）</li>
+        <li>人口：第六次人口普查及 2025 年各市统计公报常住人口</li>
+        <li>供给：各市统计公报城镇人均住房建筑面积</li>
+      </ul>
+    </div>
+    <div>
+      <h4>已知局限</h4>
+      <ul>
+        <li>全区均价为混合值：天河含珠江新城与龙洞，越秀含东风东学区房与老破小，不能代表具体小区</li>
+        <li>不含豪宅、回迁房、公寓等特殊物业；成交结构变化会影响均价读数</li>
+        <li>模型为统计拟合，未纳入政策冲击、市场情绪等短期变量，仅描述长期中枢</li>
+      </ul>
+    </div>
+    <div class="disc">报告生成：2026-10-14 · 数据文件：parsed/house_prices_data.json / parsed/gz_districts.csv / parsed/cities_comparison.csv / parsed/gz_price_income_history.csv · 本项目数据仅供研究参考</div>
+  </div>
+</footer>
+
+<script src="assets/echarts.min.js"></script>
+<script>
+/* ===== 内联数据（与 parsed/*.json、*.csv 逐项一致） ===== */
+const DATA = {
+  gzDistricts: [
+    {d:"越秀",p10:13800,p19:45445,p26:47700,i10:31068,i19:67850,i25:88200,pop10:115.73,pop25:97.16,pi19:21.5,pi26:17.3},
+    {d:"天河",p10:17844,p19:49811,p26:45500,i10:31431,i19:74859,i25:101218,pop10:143.25,pop25:225.60,pi19:21.4,pi26:14.5},
+    {d:"海珠",p10:15330,p19:37562,p26:36200,i10:28754,i19:65720,i25:92691,pop10:155.87,pop25:177.07,pi19:19.4,pi26:12.5},
+    {d:"荔湾",p10:12515,p19:32613,p26:33500,i10:29947,i19:68468,i25:86800,pop10:89.82,pop25:112.90,pi19:17.0,pi26:12.4},
+    {d:"白云",p10:10700,p19:28617,p26:24900,i10:27200,i19:66302,i25:81805,pop10:222.27,pop25:373.19,pi19:15.4,pi26:9.7},
+    {d:"番禺",p10:9960,p19:25610,p26:21300,i10:26800,i19:61987,i25:81913,pop10:176.49,pop25:287.23,pi19:14.7,pi26:8.4},
+    {d:"黄埔",p10:8975,p19:19270,p26:23000,i10:27800,i19:66253,i25:86784,pop10:65.15,pop25:125.08,pi19:10.4,pi26:8.5}
+  ],
+  cities: [
+    {c:"北京",t:"一线核心",pg:11.2,ig:231.2,pr:46.4,sg:19.5},
+    {c:"深圳",t:"一线核心",pg:75.9,ig:162.3,pr:172.1,sg:42.9},
+    {c:"广州",t:"一线核心",pg:50.4,ig:180.7,pr:116.0,sg:65.9},
+    {c:"杭州",t:"新一线",pg:46.0,ig:188.5,pr:27.8,sg:18.3},
+    {c:"厦门",t:"强二线",pg:51.9,ig:172.5,pr:98.6,sg:16.7},
+    {c:"成都",t:"新一线",pg:52.4,ig:198.7,pr:58.6,sg:45.0},
+    {c:"青岛",t:"北方二线",pg:18.7,ig:186.8,pr:71.4,sg:28.4},
+    {c:"沈阳",t:"东北二线",pg:14.4,ig:128.4,pr:42.9,sg:29.0},
+    {c:"哈尔滨",t:"东北二线",pg:-7.0,ig:167.2,pr:30.4,sg:15.3}
+  ],
+  history: [
+    {stage:"房改起步期",y:1998,r:5.5,n:"商品房市场启动初期，估值完全合理"},
+    {stage:"房改起步期",y:2003,r:6.8,n:"房价与收入同步增长，无溢价"},
+    {stage:"快速上涨期",y:2010,r:12.3,n:"四万亿+城镇化加速，首次大幅跑赢收入"},
+    {stage:"调控震荡期",y:2012,r:10.5,n:"限购限贷调控，横盘挤泡沫"},
+    {stage:"调控震荡期",y:2015,r:11.5,n:"高位震荡，估值溢价约20%"},
+    {stage:"冲顶期",y:2019,r:13.5,n:"估值偏高，纯估值溢价约30%"},
+    {stage:"冲顶期",y:2021,r:15.8,n:"历史峰值，估值溢价超50%"},
+    {stage:"回归期",y:2026,r:9.5,n:"房价下跌+收入增长双重消化，接近合理区间"}
+  ],
+  deviation: [
+    {c:"北京",b:-176.5,a:-24.0},{c:"深圳",b:-23.2,a:-8.0},{c:"广州",b:-49.2,a:10.0},
+    {c:"杭州",b:-188.4,a:-42.1},{c:"厦门",b:-109.1,a:5.0},{c:"成都",b:-147.5,a:-12.6},
+    {c:"青岛",b:-105.7,a:-5.0},{c:"沈阳",b:-70.9,a:3.7},{c:"哈尔滨",b:-114.5,a:-15.0}
+  ],
+  income: [
+    {m:"城镇居民人均\n可支配收入",gz:86069,sz:84945,h:"广州"},
+    {m:"全体居民人均\n可支配收入",gz:80591,sz:84945,h:"深圳"},
+    {m:"城镇在岗职工\n平均工资",gz:123000,sz:152000,h:"深圳"}
+  ],
+  coef: [
+    {t:"沿海核心（深圳/广州/厦门）",pc:0.7,ic:0.6,sc:-0.3,l:"高学历青壮年流入、供给稀缺，转化效率最高"},
+    {t:"内陆强二线（成都/杭州/武汉/南京）",pc:0.35,ic:0.30,sc:-0.15,l:"人口以省内县域转移为主，转化效率中等"},
+    {t:"普通二线/人口收缩（青岛/沈阳/哈尔滨/菏泽）",pc:0.20,ic:0.25,sc:-0.10,l:"人口增长乏力、供给过剩，转化效率最低"}
+  ],
+  conclusions: [
+    {t:"广州 7 区均价回到 2019 年线",n:"核心四区 7 年基本零涨幅，外围三区已低于 2019 年；全市估值溢价约 6%，接近合理区间"},
+    {t:"房价收入比回落至 9.5 倍",n:"从 2021 年峰值 15.8 倍持续回归，接近 6-9 倍合理区间上限，大幅普跌空间有限"},
+    {t:"三变量规律方向普适成立",n:"人口流入+收入增长+供给约束的方向性规律在 9 城无反例，但涨幅量级需按梯队校准转化系数"},
+    {t:"珠江新城跌幅接近东京初期",n:"2022→2026 累计约 -47%，量级接近东京核心区泡沫破裂头 4 年，但属局部估值修复+主动调控，性质不同"},
+    {t:"人口流失城市风险最集中",n:"哈尔滨收入增长但房价仅涨 30%，远低于理论值，是长期低迷风险最高的城市类型"}
+  ]
+};
+
+/* ===== 表格渲染 ===== */
+function fmt(n){return Number(n).toLocaleString('zh-CN')}
+function pct(n){return (n>0?'+':'')+n.toFixed(1)+'%'}
+(function(){
+  const td=document.getElementById('tbl-districts');
+  td.innerHTML=DATA.gzDistricts.map(x=>{
+    const pr=(x.p26/x.p10-1)*100, ir=(x.i25/x.i10-1)*100, pp=(x.pop25/x.pop10-1)*100;
+    const state = x.pi26<=9 ? '<span class="tag" style="background:#E2EFE6;color:#35603F">合理</span>' : (x.pi26<=12 ? '<span class="tag" style="background:#F3EAD9;color:#7A5A1E">略高</span>' : '<span class="tag">稀缺溢价</span>');
+    return `<tr><td>${x.d}</td><td>${fmt(x.p10)}</td><td>${fmt(x.p19)}</td><td>${fmt(x.p26)}</td><td class="${pr>0?'up':'dn'}">${pct(pr)}</td><td class="up">${pct(ir)}</td><td class="${pp>0?'up':'dn'}">${pct(pp)}</td><td>${x.pi19.toFixed(1)}</td><td>${x.pi26.toFixed(1)}</td><td>${state}</td></tr>`;
+  }).join('');
+
+  const tc=document.getElementById('tbl-cities');
+  tc.innerHTML=DATA.cities.map(x=>{
+    const judge = x.pr >= 70 ? '涨幅领先' : (x.pr >= 40 ? '温和上涨' : '涨幅滞后');
+    return `<tr><td>${x.c}</td><td>${x.t}</td><td class="${x.pg>0?'up':'dn'}">${pct(x.pg)}</td><td class="up">${pct(x.ig)}</td><td class="${x.pr>0?'up':'dn'}">${pct(x.pr)}</td><td>${pct(x.sg)}</td><td>${judge}</td></tr>`;
+  }).join('');
+
+  const tco=document.getElementById('tbl-coef');
+  tco.innerHTML=DATA.coef.map(x=>`<tr><td>${x.t}</td><td>${x.pc}</td><td>${x.ic}</td><td>${x.sc}</td><td>${x.l}</td></tr>`).join('');
+
+  const th=document.getElementById('timeline-history');
+  th.innerHTML=DATA.history.map(x=>`<div class="tl-row"><div class="tl-year">${x.y}</div><div class="tl-body"><div class="tl-name">${x.stage}</div><div class="tl-note">${x.n}</div><span class="tl-val">房价收入比 ${x.r} 倍</span></div></div>`).join('');
+
+  const tc2=document.getElementById('timeline-conclusions');
+  tc2.innerHTML=DATA.conclusions.map((x,i)=>`<div class="tl-row"><div class="tl-year">0${i+1}</div><div class="tl-body"><div class="tl-name">${x.t}</div><div class="tl-note">${x.n}</div></div></div>`).join('');
+})();
+
+/* ===== ECharts ===== */
+const INK='#1F2A3A', MUTED='#7A8296', LINE='#E3DFD4', BRAND='#A8462F', GOLD='#A8763E', GREEN='#4A7A5A', SOFT='#EDE9E0';
+const AXIS={axisLine:{lineStyle:{color:LINE}},axisLabel:{color:MUTED,fontSize:11},splitLine:{lineStyle:{color:'#F0ECE2'}},axisTick:{show:false}};
+function base(id,h){const el=document.getElementById(id);if(!el||typeof echarts==='undefined')return null;const c=echarts.init(el,null,{renderer:'canvas'});if(h)c.resize({height:h});return c;}
+function tip(extra){return Object.assign({trigger:'axis',backgroundColor:'rgba(255,255,255,.96)',borderColor:LINE,borderWidth:1,textStyle:{color:INK,fontSize:12},confine:true},extra||{})}
+
+/* 图1：7区房价收入比 2019 vs 2026 */
+(function(){
+  const c=base('chart-pi');if(!c)return;
+  c.setOption({
+    grid:{left:8,right:16,top:44,bottom:8,containLabel:true},
+    legend:{top:6,right:6,data:['2019','2026'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
+    tooltip:tip({axisPointer:{type:'shadow'}}),
+    xAxis:Object.assign({},AXIS,{type:'category',data:DATA.gzDistricts.map(x=>x.d),axisLabel:{color:INK,fontSize:12,interval:0}}),
+    yAxis:Object.assign({},AXIS,{type:'value',name:'倍数',nameTextStyle:{color:MUTED,fontSize:11}}),
+    series:[
+      {name:'2019',type:'bar',data:DATA.gzDistricts.map(x=>x.pi19),barWidth:'30%',itemStyle:{color:SOFT, borderRadius:[4,4,0,0]}},
+      {name:'2026',type:'bar',data:DATA.gzDistricts.map(x=>x.pi26),barWidth:'30%',itemStyle:{color:BRAND,borderRadius:[4,4,0,0]},
+        label:{show:true,position:'top',fontSize:10,color:BRAND,formatter:p=>p.value+' 倍'}}
+    ]
+  });
+})();
+
+/* 图2：散点 人口×房价 */
+(function(){
+  const c=base('chart-scatter');if(!c)return;
+  c.setOption({
+    grid:{left:8,right:40,top:36,bottom:8,containLabel:true},
+    legend:{top:6,right:6,data:['一线核心','新一线','二线/其他'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
+    tooltip:tip({formatter:function(p){const d=p.data;return d[3]+'<br>人口增幅：'+d[0].toFixed(1)+'%<br>房价涨幅：'+d[1].toFixed(1)+'%<br>供给增幅：'+d[2].toFixed(1)+'%'}}),
+    xAxis:Object.assign({},AXIS,{type:'value',name:'常住人口 15 年增幅 %',nameTextStyle:{color:MUTED,fontSize:11},min:-20,max:100}),
+    yAxis:Object.assign({},AXIS,{type:'value',name:'房价 16 年涨幅 %',nameTextStyle:{color:MUTED,fontSize:11},min:0,max:220}),
+    series:[
+      {type:'scatter',name:'一线核心',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.t==='一线核心').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:BRAND,opacity:.85}},
+      {type:'scatter',name:'新一线',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.t==='新一线').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:GOLD,opacity:.85}},
+      {type:'scatter',name:'二线/其他',symbolSize:d=>18+d[2]/6,data:DATA.cities.filter(x=>x.t!=='一线核心'&&x.t!=='新一线').map(x=>[x.pg,x.pr,x.sg,x.c]),itemStyle:{color:GREEN,opacity:.85}}
+    ]
+  });
+})();
+
+/* 图3：校准前后偏差 */
+(function(){
+  const c=base('chart-deviation');if(!c)return;
+  c.setOption({
+    grid:{left:8,right:16,top:44,bottom:8,containLabel:true},
+    legend:{top:6,right:6,data:['原模型偏差','梯队系数修正后'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
+    tooltip:tip({axisPointer:{type:'shadow'},formatter:function(p){return p[0].name+'<br>'+p[0].seriesName+'：'+p[0].value.toFixed(1)+'%'}}),
+    xAxis:Object.assign({},AXIS,{type:'category',data:DATA.deviation.map(x=>x.c),axisLabel:{color:INK,fontSize:11,interval:0}}),
+    yAxis:Object.assign({},AXIS,{type:'value',name:'偏差（实际-理论，%）',nameTextStyle:{color:MUTED,fontSize:11}}),
+    series:[
+      {name:'原模型偏差',type:'bar',data:DATA.deviation.map(x=>x.b),barWidth:'26%',itemStyle:{color:SOFT,borderRadius:[4,4,0,0]}},
+      {name:'梯队系数修正后',type:'bar',data:DATA.deviation.map(x=>x.a),barWidth:'26%',itemStyle:{color:BRAND,borderRadius:[4,4,0,0]},
+        label:{show:true,position:'top',fontSize:9,color:BRAND,formatter:p=>p.value.toFixed(0)+'%'}}
+    ]
+  });
+})();
+
+/* 图4：房价收入比历史 */
+(function(){
+  const c=base('chart-history');if(!c)return;
+  const ys=DATA.history.map(x=>x.y), rs=DATA.history.map(x=>x.r);
+  c.setOption({
+    grid:{left:8,right:20,top:44,bottom:8,containLabel:true},
+    legend:{top:6,right:6,data:['房价收入比','合理区间上界'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
+    tooltip:tip({formatter:function(p){if(p[0].seriesName==='合理区间上界')return '合理区间上界：9 倍';const i=p[0].dataIndex;return DATA.history[i].y+' · '+DATA.history[i].stage+'<br>房价收入比：'+DATA.history[i].r+' 倍<br>'+DATA.history[i].n}}),
+    xAxis:Object.assign({},AXIS,{type:'category',data:ys.map(y=>y),axisLabel:{color:MUTED,fontSize:11}}),
+    yAxis:Object.assign({},AXIS,{type:'value',name:'倍数',nameTextStyle:{color:MUTED,fontSize:11},min:4,max:17}),
+    series:[
+      {name:'合理区间上界',type:'line',data:rs.map(()=>9),symbol:'none',lineStyle:{color:GOLD,width:1.5,type:'dashed'},silent:true},
+      {name:'房价收入比',type:'line',data:rs,symbol:'circle',symbolSize:7,smooth:false,
+        lineStyle:{color:BRAND,width:3},itemStyle:{color:BRAND},
+        label:{show:true,position:'top',fontSize:10,color:BRAND,formatter:p=>p.value+'×'},
+        markPoint:{symbol:'pin',symbolSize:46,data:[{type:'max',name:'峰值',label:{formatter:'峰值'}},{coord:[ys.indexOf(2026),9.5],name:'当前',label:{formatter:'当前'}}],itemStyle:{color:GOLD}}}
+    ]
+  });
+})();
+
+/* 图5：广深收入口径 */
+(function(){
+  const c=base('chart-income');if(!c)return;
+  const cats=DATA.income.map(x=>x.m.split('\n').join(' '));
+  c.setOption({
+    grid:{left:8,right:50,top:36,bottom:8,containLabel:true},
+    legend:{top:6,right:6,data:['广州','深圳'],textStyle:{color:MUTED,fontSize:12},itemWidth:14,itemHeight:8},
+    tooltip:tip({axisPointer:{type:'shadow'},formatter:function(p){return p[0].name+'<br>'+p[0].seriesName+'：'+fmt(p[0].value)+' 元'}}),
+    xAxis:Object.assign({},AXIS,{type:'value',axisLabel:{color:MUTED,fontSize:11,formatter:v=>(v/10000).toFixed(0)+'万'}}),
+    yAxis:Object.assign({},AXIS,{type:'category',data:cats,axisLabel:{color:INK,fontSize:12,interval:0,width:140,overflow:'break'}}),
+    series:[
+      {name:'广州',type:'bar',data:DATA.income.map(x=>x.gz),barWidth:'22%',itemStyle:{color:GOLD,borderRadius:[0,4,4,0]},
+        label:{show:true,position:'inside',fontSize:10,color:'#5A3A12',formatter:p=>fmt(p.value)}},
+      {name:'深圳',type:'bar',data:DATA.income.map(x=>x.sz),barWidth:'22%',itemStyle:{color:BRAND,borderRadius:[0,4,4,0]},
+        label:{show:true,position:'right',fontSize:10,color:BRAND,formatter:p=>fmt(p.value)}}
+    ]
+  });
+})();
+
+window.addEventListener('resize',function(){document.querySelectorAll('.chart-box').forEach(function(el){var c=echarts.getInstanceByDom(el);if(c)c.resize();});});
+</script>
+</body>
+</html>

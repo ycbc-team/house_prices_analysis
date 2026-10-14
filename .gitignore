@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# 临时调试产物（禁止入库）
+_shots/
+shots/
+
+# Python
+__pycache__/
+*.pyc
+
+# 本地编辑器
+.idea/
+.vscode/

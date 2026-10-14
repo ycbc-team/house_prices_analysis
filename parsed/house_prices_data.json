@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "中国主要城市房价基本面分析数据集",
+    "description": "基于2026年10月公开数据整理的多城市房价-人口-收入-供给分析数据集，用于房价估值与模型拟合研究。",
+    "created": "2026-10-14",
+    "unit_note": "房价单位为元/平方米；收入单位为元/年；人口单位为万人；供给为人均住房建筑面积（平方米/人）。",
+    "disclaimer": "本数据集仅供研究参考，不构成任何购房建议或房价预测。数据含估算值，已逐项标注。",
+    "sources": {
+      "housing_price_2010": "合富置业历史成交数据（当年主流中介成交均价）",
+      "housing_price_2019": "链家实际成交备案数据",
+      "housing_price_2026": "贝壳/58同城挂牌价下浮7%-8%估算成交价（当前市场议价空间5%-10%）",
+      "income": "各市统计局统计公报，城镇居民人均可支配收入",
+      "population": "第六次人口普查及2025年各市统计公报常住人口",
+      "supply": "各市统计公报城镇人均住房建筑面积",
+      "gd": "各市统计局GDP数据"
+    }
+  },
+  "gz_districts": {
+    "description": "广州7区房价与基本面数据（2010/2019/2026）",
+    "note": "2019年房价为链家成交均价；2026年房价为挂牌价下浮8%估算成交价；部分收入为相邻年份增速推算值（误差±2%内）。",
+    "records": [
+      {"district": "越秀", "price_2010": 13800, "price_2019": 45445, "price_2026_est": 47700, "income_2010": 31068, "income_2019": 67850, "income_2025": 88200, "pop_2010": 115.73, "pop_2025": 97.16, "price_income_2019": 21.5, "price_income_2026": 17.3},
+      {"district": "天河", "price_2010": 17844, "price_2019": 49811, "price_2026_est": 45500, "income_2010": 31431, "income_2019": 74859, "income_2025": 101218, "pop_2010": 143.25, "pop_2025": 225.60, "price_income_2019": 21.4, "price_income_2026": 14.5},
+      {"district": "海珠", "price_2010": 15330, "price_2019": 37562, "price_2026_est": 36200, "income_2010": 28754, "income_2019": 65720, "income_2025": 92691, "pop_2010": 155.87, "pop_2025": 177.07, "price_income_2019": 19.4, "price_income_2026": 12.5},
+      {"district": "荔湾", "price_2010": 12515, "price_2019": 32613, "price_2026_est": 33500, "income_2010": 29947, "income_2019": 68468, "income_2025": 86800, "pop_2010": 89.82, "pop_2025": 112.90, "price_income_2019": 17.0, "price_income_2026": 12.4},
+      {"district": "白云", "price_2010": 10700, "price_2019": 28617, "price_2026_est": 24900, "income_2010": 27200, "income_2019": 66302, "income_2025": 81805, "pop_2010": 222.27, "pop_2025": 373.19, "price_income_2019": 15.4, "price_income_2026": 9.7},
+      {"district": "番禺", "price_2010": 9960, "price_2019": 25610, "price_2026_est": 21300, "income_2010": 26800, "income_2019": 61987, "income_2025": 81913, "pop_2010": 176.49, "pop_2025": 287.23, "price_income_2019": 14.7, "price_income_2026": 8.4},
+      {"district": "黄埔", "price_2010": 8975, "price_2019": 19270, "price_2026_est": 23000, "income_2010": 27800, "income_2019": 66253, "income_2025": 86784, "pop_2010": 65.15, "pop_2025": 125.08, "price_income_2019": 10.4, "price_income_2026": 8.5}
+    ]
+  },
+  "cities": {
+    "description": "9个代表性城市人口/收入/房价/供给跨期对比（2010 vs 2025/2026）",
+    "note": "增幅为区间累计增幅（%）；房价为二手住宅成交价口径；2026年房价按挂牌价下浮7%-8%估算。",
+    "records": [
+      {"city": "北京", "type": "一线核心", "pop_growth": 11.2, "income_growth": 231.2, "price_growth": 46.4, "supply_growth": 19.5},
+      {"city": "深圳", "type": "一线核心", "pop_growth": 75.9, "income_growth": 162.3, "price_growth": 172.1, "supply_growth": 42.9},
+      {"city": "广州", "type": "一线核心", "pop_growth": 50.4, "income_growth": 180.7, "price_growth": 116.0, "supply_growth": 65.9},
+      {"city": "杭州", "type": "新一线", "pop_growth": 46.0, "income_growth": 188.5, "price_growth": 27.8, "supply_growth": 18.3},
+      {"city": "厦门", "type": "强二线", "pop_growth": 51.9, "income_growth": 172.5, "price_growth": 98.6, "supply_growth": 16.7},
+      {"city": "成都", "type": "新一线", "pop_growth": 52.4, "income_growth": 198.7, "price_growth": 58.6, "supply_growth": 45.0},
+      {"city": "青岛", "type": "北方二线", "pop_growth": 18.7, "income_growth": 186.8, "price_growth": 71.4, "supply_growth": 28.4},
+      {"city": "沈阳", "type": "东北二线", "pop_growth": 14.4, "income_growth": 128.4, "price_growth": 42.9, "supply_growth": 29.0},
+      {"city": "哈尔滨", "type": "东北二线", "pop_growth": -7.0, "income_growth": 167.2, "price_growth": 30.4, "supply_growth": 15.3}
+    ]
+  },
+  "shandong_cities": {
+    "description": "山东三城验证样本（济南/青岛/菏泽）",
+    "records": [
+      {"city": "济南", "type": "省会", "pop_growth": 41.1, "income_growth": 169.1, "price_growth": 75.3, "supply_growth": 23.4},
+      {"city": "青岛", "type": "沿海二线", "pop_growth": 18.7, "income_growth": 186.8, "price_growth": 71.4, "supply_growth": 28.4},
+      {"city": "菏泽", "type": "三四线", "pop_growth": 2.7, "income_growth": 159.4, "price_growth": 62.5, "supply_growth": 35.5}
+    ]
+  },
+  "gz_price_income_history": {
+    "description": "广州房价收入比历史演变（1998-2026，五轮周期）",
+    "note": "口径：90平方米商品住宅套均总价 ÷ 城镇家庭年可支配收入（人均收入×户均2.8人）。",
+    "records": [
+      {"stage": "房改起步期", "year": 1998, "ratio": 5.5, "note": "商品房市场启动初期，估值完全合理"},
+      {"stage": "房改起步期", "year": 2003, "ratio": 6.8, "note": "房价与收入同步增长，无溢价"},
+      {"stage": "快速上涨期", "year": 2010, "ratio": 12.3, "note": "四万亿+城镇化加速，首次大幅跑赢收入"},
+      {"stage": "调控震荡期", "year": 2012, "ratio": 10.5, "note": "限购限贷调控，横盘挤泡沫"},
+      {"stage": "调控震荡期", "year": 2015, "ratio": 11.5, "note": "高位震荡，估值溢价约20%"},
+      {"stage": "冲顶期", "year": 2019, "ratio": 13.5, "note": "估值偏高，纯估值溢价约30%"},
+      {"stage": "冲顶期", "year": 2021, "ratio": 15.8, "note": "历史峰值，估值溢价超50%"},
+      {"stage": "回归期", "year": 2026, "ratio": 9.5, "note": "房价下跌+收入增长双重消化，接近合理区间"}
+    ]
+  },
+  "gs_shenzhen_income": {
+    "description": "广州与深圳收入口径对比（2025年）",
+    "note": "城镇居民人均可支配收入广州略高源于统计分母差异（深圳城镇化率99.79%，全域纳入统计含大量外来务工中低收入群体）；全体居民口径深圳更高；工资口径深圳显著更高。",
+    "records": [
+      {"metric": "城镇居民人均可支配收入", "guangzhou": 86069, "shenzhen": 84945, "higher": "广州", "note": "差异+1.3%，统计分母不同"},
+      {"metric": "全体居民人均可支配收入", "guangzhou": 80591, "shenzhen": 84945, "higher": "深圳", "note": "深圳+5.4%，更符合大众体感"},
+      {"metric": "城镇在岗职工平均工资", "guangzhou": 123000, "shenzhen": 152000, "higher": "深圳", "note": "深圳+23.6%，职场体感核心口径"}
+    ]
+  },
+  "model": {
+    "description": "房价基本面模型与系数校准",
+    "formula_base": "房价长期涨幅 ≈ 人口增长 + 收入增长 - 供给增长",
+    "formula_calibrated": "理论房价涨幅 = 0.35×常住人口增幅 + 0.30×收入增幅 - 0.15×人均住房供给增幅（全局均值）",
+    "coefficients": [
+      {"tier": "沿海核心（深圳/广州/厦门等）", "pop_coef": 0.7, "income_coef": 0.6, "supply_coef": -0.3, "note": "人口以高学历青壮年为主、供给稀缺，转化效率最高"},
+      {"tier": "内陆强二线（成都/杭州/武汉/南京等）", "pop_coef": 0.35, "income_coef": 0.30, "supply_coef": -0.15, "note": "人口以省内县域转移为主，转化效率中等"},
+      {"tier": "普通二线/人口收缩（青岛/沈阳/哈尔滨/菏泽等）", "pop_coef": 0.20, "income_coef": 0.25, "supply_coef": -0.10, "note": "人口增长乏力、供给过剩，转化效率最低"}
+    ],
+    "deviation_before": [
+      {"city": "北京", "dev_before": -176.5, "dev_after": -24.0},
+      {"city": "深圳", "dev_before": -23.2, "dev_after": -8.0},
+      {"city": "广州", "dev_before": -49.2, "dev_after": 10.0},
+      {"city": "杭州", "dev_before": -188.4, "dev_after": -42.1},
+      {"city": "厦门", "dev_before": -109.1, "dev_after": 5.0},
+      {"city": "成都", "dev_before": -147.5, "dev_after": -12.6},
+      {"city": "青岛", "dev_before": -105.7, "dev_after": -5.0},
+      {"city": "沈阳", "dev_before": -70.9, "dev_after": 3.7},
+      {"city": "哈尔滨", "dev_before": -114.5, "dev_after": -15.0}
+    ]
+  },
+  "conclusions": {
+    "description": "分析核心结论",
+    "items": [
+      "广州7区均价2026年约3.2-3.6万元/平方米（成交口径3.0-3.1万），核心四区基本回到2019年线，外围三区已低于2019年。",
+      "广州全市房价收入比从2021年峰值15.8倍回落至2026年约9.5倍，接近6-9倍合理区间上限。",
+      "9城验证显示：人口流入+收入增长+供给约束的方向性规律普适成立，但原始系数（均为1）系统性高估房价，需按城市梯队校准转化系数。",
+      "珠江新城2022年峰值至2026年累计跌幅约47%，接近东京核心区泡沫破裂初期跌幅，但属于局部估值修复+主动调控，与日本全国性硬着陆性质不同。",
+      "人口净流失城市（哈尔滨）即使收入增长，房价涨幅也大幅跑输基本面，是长期低迷风险最集中的类型。"
+    ]
+  }
+}
