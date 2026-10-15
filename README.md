@@ -1,47 +1,51 @@
-# 中国主要城市房价基本面分析
+# 城市研究分析项目
 
-基于公开数据的房价估值与模型拟合研究项目。核心框架为「常住人口 × 人均收入 × 住房供给」三变量模型，覆盖广州 7 区、9 个一二线城市、6 个三四线城市与山东三城样本。
+基于公开统计数据的房价与人口研究，分两个独立业务：
+
+| 业务 | 目录 | 报告入口 |
+|------|------|----------|
+| **城市房价分析** | `city_housing/` | `city_housing/dist/房价基本面分析报告.html` |
+| **人口变化分析** | `population_analysis/` | `population_analysis/广州各区人口变化分析.html` |
+
+GitHub Pages 导航首页：<https://ycbc-team.github.io/house_prices_analysis/>
 
 ## 目录结构
 
-| 目录 | 用途 | 当前内容 |
-|------|------|----------|
-| `raw/` | 政府、贝壳等**原始来源文件**：每个关键数据点一个 .md 记录（URL、抓取日期、关键原文摘录、口径说明），可逐条回溯 | 27 个数据源文件（9 城 2010/2026 房价成交/网签口径 + 6 三四线 2010 新房均价排行/2026 鸥维参考口径 + 人口收入公报摘录） |
-| `scripts/` | 数据处理脚本（读取 raw → 产出 parsed；校验 parsed 一致性） | `transcribe_raw.py`、`validate_data.py` |
-| `src/` | **人工矫正产物**：对 OCR/转录结果做人工核对修正后的中间文件 | 待补充 |
-| `parsed/` | 从 raw 经转录得到、可直接消费的**结构化数据文件** | `house_prices_data.json`、`gz_districts.csv`、`cities_comparison.csv`、`gz_price_income_history.csv` |
-| `dist/` | **最终交付产物**：HTML 报告及其静态资源 | `房价基本面分析报告.html`、`assets/echarts.min.js` |
-
-## 数据流
-
 ```
-raw（原始来源，URL + 摘录 + 口径）
-  → [scripts/transcribe_raw.py 转录]   ← 从 raw front-matter 解析数据点，生成 parsed CSV
-  → parsed（结构化数据，cities_comparison.csv 为本轮主产物）
-  → dist（HTML 报告内嵌同源数据，供最终消费）
+house_prices_analysis/
+├── city_housing/          城市房价分析业务（三变量估值模型）
+│   ├── raw/                原始来源文件（URL + 摘录 + 口径）
+│   ├── scripts/            转录与校验脚本
+│   ├── parsed/             结构化数据（CSV/JSON）
+│   └── dist/              最终 HTML 报告 + assets
+├── population_analysis/    人口变化分析业务（1998—2025 分区全景）
+│   ├── build_dataset.py    数据构建脚本
+│   ├── build_report.py     HTML 报告生成脚本
+│   ├── raw/                派生长表数据
+│   └── 广州各区人口变化分析.html
+└── docs/                   GitHub Pages 发布层（首页 + 各业务报告副本）
+    ├── index.html          导航首页
+    ├── housing/index.html  房价报告
+    └── population/index.html  人口报告
 ```
 
-> 校验：`scripts/validate_data.py` 执行「CSV 数值合法性 + CSV↔JSON 交叉一致」三类校验。
+## 城市房价分析（摘要）
 
-## 常用命令
+核心框架为「常住人口 × 人均收入 × 住房供给」三变量模型，覆盖广州 7 区、9 个一二线城市、6 个三四线城市与山东三城样本。
 
 ```bash
-# 转录 raw 数据源 → parsed/cities_comparison.csv
-python3 scripts/transcribe_raw.py
-
-# 校验 parsed 数据（数值合法性 + CSV/JSON 交叉一致性）
-python3 scripts/validate_data.py
-
-# 本地打开报告
-open dist/房价基本面分析报告.html
+python3 city_housing/scripts/transcribe_raw.py   # 转录 raw → parsed
+python3 city_housing/scripts/validate_data.py    # 校验数据
 ```
 
-## 数据口径（摘要）
+## 人口变化分析（摘要）
 
-- 房价：**二手住宅成交/网签口径**（2010 年各市官方成交或主流中介成交口径：北京 19186、深圳 18774、广州 12944、杭州 20058、厦门 11000；成都/青岛/沈阳/哈尔滨为多源交叉估算已标注；2026 年住建局网签、机构成交监测或平台均价：广州 24412 阳光家缘网签、深圳 57706 乐有家、杭州 26817 我爱我家、北京约 3.9 万、成都 14900、青岛 16822、沈阳 7540、哈尔滨 7200；厦门缺权威口径标注「待补」）
-- 房价-三四线：2010 为《2010年中国城市房价排行榜》新房均价口径（洛阳 4207、汕头 4330、湛江 4772、徐州 4632、九江 4771、济宁 3950）；2026 为鸥维数据参考口径（洛阳 7096、汕头 10287、湛江 8375、徐州 7718、九江 6942、济宁 6349）。跨梯队口径不完全可比
-- 收入：城镇居民人均可支配收入（各区/市统计局统计公报）
-- 人口：常住人口（六普 / 2025 年统计公报）
-- 供给：城镇人均住房建筑面积
+广州各区 1998—2025 年户籍/常住人口、自然变动（出生/死亡）、户籍迁移（迁入/迁出）、普查口径跨市流入与净流入，数据来自历年《广州统计年鉴》、统计局公报与第五/六/七次人口普查。
 
-完整口径、逐城来源与已知局限见报告文末「数据口径与来源」及 raw/ 目录源文件。本仓库数据仅供研究参考，不构成购房建议。
+```bash
+python3 population_analysis/build_dataset.py    # 重建数据集
+python3 population_analysis/build_excel.py       # 导出 Excel
+python3 population_analysis/build_report.py     # 重建 HTML 报告
+```
+
+> 本仓库数据仅供研究参考，不构成购房建议。
